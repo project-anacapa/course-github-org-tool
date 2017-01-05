@@ -42,7 +42,28 @@ You'll be asked for the name of your application.  You'll then be asked for the 
 * OMNIAUTH_PROVIDER_KEY and OMNIAUTH_PROVIDER_SECRET correspond to the "Github OAuth Client Id" and 
     "Github OAuth Client Secret".  These allow the application to authenticate to Github.    
     These can be associated with a github user, or with a github organization.  Set these up here, 
-    for example: <https://github.com/settings/applications/new>  Then copy the values in to the appropriate slots.
+    for example: <https://github.com/settings/applications/new>  
+    
+    You'll be asked for these pieces of information
+    
+    * `Application name`: Something like: `ucsb-cs16-w17-signup`
+    
+        You can enter anything you like, but you should choose something that will be meaningful
+        to the students enrolling in your course.  They'll be asked whether they trust this application with their
+        github credentials.   
+        
+        
+    * Homepage URL: This should be `https://appname.herokuapp.com` (e.g. `https://ucsb-cs16-w17-signup.herokuapp.com`, not
+        literally `appname`.)
+
+    * Application description: Optional, but here you could put something like "Registration for github accounts
+        for Prof. Smith's CS123 Course at Narnia University."
+        
+    * Authorization callback URL: Should be: `https://<<your-url>>/auth/github/callback`, where `<<your-url>>` is, for example, `ucsb-cs16-w17-signup.herokuapp.com`.   It is important to get this exact, or the OAuth signin will not work properly.
+
+    
+    Once you enter all of this, you'll get back a Github-Client-Id, and a Github-Client-Secret.  Copy these values in for
+    OMNIAUTH_PROVIDER_KEY and OMNIAUTH_PROVIDER_SECRET.
 
 * MACHINE_USER_NAME  This is the userid of a github "machine user" as explained 
     here:     <https://developer.github.com/guides/managing-deploy-keys/#machine-users>.   
