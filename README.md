@@ -159,4 +159,4 @@ Rails Composer is supported by developers who purchase our RailsApps tutorials.
 License
 -------
 
-TODO
+Copyright © 2017 Nick Brown. This source code is licensed under the MIT license found in the [LICENSE](https://github.com/ncbrown1/course-github-org-tool/blob/master/LICENSE) file.
