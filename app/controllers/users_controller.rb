@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_instructor!, :except => [:match_to_student]
   before_action :correct_user?, :except => [:index, :set_as_instructor]
 
   def index
