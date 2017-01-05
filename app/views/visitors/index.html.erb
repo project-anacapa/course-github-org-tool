@@ -1,9 +1,13 @@
 <h3>Welcome to <tt>course-github-org-tool</tt>!</h3>
-<p><%= link_to 'Users:', users_path %> <%= User.count %> registered</p>
 
 <% if user_signed_in? %>
   <p>You are signed in!</p>
-  <% if @member %>
+  <% if !is_course_setup? %>
+    <p>
+      Welcome Instructor! It looks like you haven't set up your course yet.
+      Care to <%= link_to "do so now", course_setup_path %>?
+    </p>
+  <% elsif @member %>
     <p>
       Congratulations! You've successfully enrolled in `<%= @course %>`!
       <% if @member == "active" %>
@@ -11,6 +15,10 @@
       <% else %>
         There should be a pending invite for you to join the GitHub Organization
         for this course in your email. Please accept that invite as soon as possible.
+        <br><br>
+        Don't want to wait?
+        <a href="https://github.com/orgs/<%= @course %>/invitation">Click here</a>
+        to approve the invitation!
       <% end %>
     </p>
 
