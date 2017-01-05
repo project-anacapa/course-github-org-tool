@@ -8,6 +8,36 @@ This tool is a first attempt at a MVP for allowing students to self-enroll in a 
 
 It also provides an interface for instructors to view which of their students have or have not enrolled in the GitHub Organization for the course, provided that the students have logged in to the application OR the application knows about the students' GitHub usernames.
 
+Deploying on Heroku
+===================
+
+To deploy this app on Heroku, you will need:
+
+1. A github organization for your course, to which the instructor has owner access.
+
+1. Values for the environment variables OMNIAUTH_PROVIDER_KEY and OMNIAUTH_PROVIDER_SECRET, which come from setting up an
+    OAuth application in Github.    These can be associated with a github user, or with a github organization.  Set these
+    up here, for example: <https://github.com/settings/applications/new>
+
+1. The userid of a github "machine user" as explained here: 
+    <https://developer.github.com/guides/managing-deploy-keys/#machine-users>.   This user is the the user that acts on
+    behalf of the application.   One of the first steps in application setup is to give this "machine user" owner access
+    to the organization so that it can add students to the organization on behalf of the instructor (this allows us to
+    limit the scope of what the application has access to---only a single organization rather than everything the 
+    instructor's account could potentially do.)
+    
+    To set one of these up, simply log out of github, and create a brand new github user.  When prompted for an email,
+    you'll find that if you use an email that is already associated with a github account, you'll get an error.  To
+    get around this, add a tag to your email, as in this example: instead of `jsmith@gmail.com`, use `jsmith+github-mu@gmail.com` or instead of `pconrad@cs.ucsb.edu`, use `pconrad+github-tool@cs.ucsb.edu`.
+   
+1.  A personal access token for the machine user.  While logged in to github "as the machine user", access this 
+    item on the settings menu: <https://github.com/settings/tokens>. Create a personal access token with the 
+    correct scope `(user,admin:org)`.  Record this value, but be sure it is in a SECURE location (since access to this
+    token confers the power to take any action in github that the machine user is authorized to take.)  In particular,
+    do not store it in any github repo, or anywhere that it could potentially leak.
+
+With these four pieces of information, you are ready to deploy to Heroku.
+
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 Ruby on Rails
@@ -21,8 +51,8 @@ This application requires:
 
 Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
 
-Getting Started
----------------
+Run the app in development
+--------------------------
 
 To run this application in development, you need Postgres running locally, and a postgres user called `course-github-org-tool`.  Create it like this:
 
