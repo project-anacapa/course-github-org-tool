@@ -1,0 +1,42 @@
+{
+  "name": "Course Github Org Tool",
+  "description": "A tool to manage students in github organizations for courses",
+  "keywords": [],
+  "repository": "https://github.com/ncbrown1/course-github-org-tool",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:migrate"
+  },
+  "env": {
+    "OMNIAUTH_PROVIDER_KEY": {
+      "description": "Github OAuth application client key.",
+      "value": "insert_github_client_key"
+    },
+    "OMNIAUTH_PROVIDER_SECRET": {
+      "description": "Github OAuth application client secret.",
+      "value": "insert_github_client_secret"
+    },
+    "MACHINE_USER_NAME": {
+      "description": "GitHub username of application machine user.",
+      "value": "insert_machine_user_github_username"
+    },
+    "MACHINE_USER_KEY": {
+      "description": "API Key with (user,admin:org) for the machine user.",
+      "value": "insert_machine_user_api_key"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ]
+}
