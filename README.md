@@ -1,6 +1,12 @@
 Course Github Org Tool
 ================
 
+[![Build Status](https://travis-ci.org/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool.svg?branch=master)](https://travis-ci.org/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool)
+[![Code Climate](https://codeclimate.com/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool/badges/gpa.svg)](https://codeclimate.com/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool)
+[![Coverage Status](https://coveralls.io/repos/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool/badge.svg?branch=master)](https://coveralls.io/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool?branch=master)
+[![Issue Count](https://codeclimate.com/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool/badges/issue_count.svg)](https://codeclimate.com/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool)
+[![Inline docs](http://inch-ci.org/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool.svg?branch=master)](http://inch-ci.org/github/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool)
+
 This tool is a first attempt at a MVP for allowing students to self-enroll in a GitHub Organization associated with a course, provided:
 
 * Their school email address (e.g. 'cgaucho@umail.ucsb.edu') appears as a verified email address on their GitHub account
@@ -159,4 +165,4 @@ Rails Composer is supported by developers who purchase our RailsApps tutorials.
 License
 -------
 
-Copyright © 2017 Nick Brown. This source code is licensed under the MIT license found in the [LICENSE](https://github.com/ncbrown1/course-github-org-tool/blob/master/LICENSE) file.
+Copyright © 2017 Nick Brown ([@ncbrown1](https://github.com/ncbrown1)). This source code is licensed under the MIT license found in the [LICENSE](https://github.com/ncbrown1/course-github-org-tool/blob/master/LICENSE) file.
