@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+- 2.3.0
+script:
+- bundle exec rspec
+before_script:
+- psql -c 'create user "course-github-org-tool" with createdb;' -U postgres
+- RAILS_ENV=test bundle exec rails db:setup --trace
