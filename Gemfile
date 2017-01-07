@@ -39,6 +39,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'dotenv-rails'
+  gem 'coveralls', require: false
 end
 group :test do
   gem 'capybara'
