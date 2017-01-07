@@ -2,7 +2,7 @@
   "name": "Course Github Org Tool",
   "description": "A tool to manage students in github organizations for courses",
   "keywords": [],
-  "repository": "https://github.com/ncbrown1/course-github-org-tool",
+  "repository": "https://github.com/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool",
   "success_url": "/",
   "scripts": {
     "postdeploy": "bundle exec rails db:migrate"
