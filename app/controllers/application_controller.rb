@@ -12,11 +12,7 @@ class ApplicationController < ActionController::Base
 
   private
     def current_user
-      begin
-        @current_user ||= User.find(session[:user_id]) if session[:user_id]
-      rescue Exception => e
-        nil
-      end
+      @current_user ||= User.where(id: session[:user_id]).first
     end
 
     def user_signed_in?
@@ -43,15 +39,16 @@ class ApplicationController < ActionController::Base
     end
 
     def is_course_setup?
-      return true if Setting.course else false
+      course = Setting.course
+      return !course.blank?
     end
 
     def is_instructor?(user=nil)
       user = user || current_user
-      return true if user and \
-                     Setting.instructors and \
-                     Setting.instructors.include? user.username
-                  else false
+      instructors = Setting.instructors
+      return !user.blank? and !instructors.blank? and \
+             instructors.kind_of?(Array) and \
+             Setting.instructors.include? user.username
     end
 
     def is_org_member(username=nil)
@@ -63,7 +60,8 @@ class ApplicationController < ActionController::Base
           mo = machine_octokit
           membership = mo.org_membership(Setting.course, { user: username })
           return membership.state
-        rescue
+        rescue Octokit::NotFound
+          return nil
         end
       end
       return nil
