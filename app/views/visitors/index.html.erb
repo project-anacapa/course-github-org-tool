@@ -1,69 +1,71 @@
-<h3>Welcome to <tt>course-github-org-tool</tt>!</h3>
-
-<% if user_signed_in? %>
-  <p>You are signed in!</p>
-  <% if !is_course_setup? %>
-    <p>
-      Welcome Instructor! It looks like you haven't set up your course yet.
-      Care to <%= link_to "do so now", course_setup_path %>?
-    </p>
-  <% elsif @member %>
-    <p>
-      Congratulations! You've successfully enrolled in `<%= @course %>`!
-      <% if @member == "active" %>
-        Thanks for joining the organization, and good luck in your studies!
-      <% else %>
-        There should be a pending invite for you to join the GitHub Organization
-        for this course in your email. Please accept that invite as soon as possible.
-        <br><br>
-        Don't want to wait?
-        <a href="https://github.com/orgs/<%= @course %>/invitation">Click here</a>
-        to approve the invitation!
-      <% end %>
-    </p>
-
-    <p>
-      Here is a <a href="https://github.com/<%= @course %>">link to Course GitHub
-      Organization</a> for your convenience.
-    </p>
-  <% else %>
-    <p>
-      Uh oh, it looks like we couldn't find you in the course roster! Be sure that
-      you have added and verified your university email (i.e. cgaucho@umail.ucsb.edu)
-      as an alias to your GitHub account so we can know who you are.
-    </p>
-    <p>
-      If you are certain that your university email is attached to your GitHub
-      account and has been verified, then you are likely not in the official
-      course roster that was uploaded to this website. Perhaps you added the
-      course after the roster was uploaded by your instructor. Contact your
-      instructor for details about what to do next. Include your github id as
-      well as your school email in your inquiry.
-    </p>
-    <p>For your reference, your current list of emails is shown below:</p>
-    <ul>
-      <% @emails.each do |email| %>
-        <li>
-          <%= email.email %>
-          <% if email.primary %>
-            <span class="glyphicon glyphicon-info-sign text-primary" title="Primary email address"></span>
-          <% end %>
-          <% if email.verified %>
-            <span class="glyphicon glyphicon-ok-sign text-success" title="Verified email address"></span>
-          <% else %>
-            <span class="glyphicon glyphicon-exclamation-sign text-danger"></span> <b>Not verified!</b>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-
-
-    <p>
-      <%= button_to "Attempt Match Again",
-                    match_user_path(current_user),
-                    method: :post, class: 'btn btn-primary' %>
-    </p>
-  <% end %>
+<% if !user_signed_in? %>
+  <%= render "splash" %>
 <% else %>
-  <p>You are <b>NOT</b> signed in.</p>
+  <div class="container">
+    <h3>Welcome to <tt>course-github-org-tool</tt>!</h3>
+
+    <p>You are signed in!</p>
+    <% if !is_course_setup? %>
+      <p>
+        Welcome Instructor! It looks like you haven't set up your course yet.
+        Care to <%= link_to "do so now", course_setup_path %>?
+      </p>
+    <% elsif @member %>
+      <p>
+        Congratulations! You've successfully enrolled in `<%= @course %>`!
+        <% if @member == "active" %>
+          Thanks for joining the organization, and good luck in your studies!
+        <% else %>
+          There should be a pending invite for you to join the GitHub Organization
+          for this course in your email. Please accept that invite as soon as possible.
+          <br><br>
+          Don't want to wait?
+          <a href="https://github.com/orgs/<%= @course %>/invitation">Click here</a>
+          to approve the invitation!
+        <% end %>
+      </p>
+
+      <p>
+        Here is a <a href="https://github.com/<%= @course %>">link to Course GitHub
+        Organization</a> for your convenience.
+      </p>
+    <% else %>
+      <p>
+        Uh oh, it looks like we couldn't find you in the course roster! Be sure that
+        you have added and verified your university email (i.e. cgaucho@umail.ucsb.edu)
+        as an alias to your GitHub account so we can know who you are.
+      </p>
+      <p>
+        If you are certain that your university email is attached to your GitHub
+        account and has been verified, then you are likely not in the official
+        course roster that was uploaded to this website. Perhaps you added the
+        course after the roster was uploaded by your instructor. Contact your
+        instructor for details about what to do next. Include your github id as
+        well as your school email in your inquiry.
+      </p>
+      <p>For your reference, your current list of emails is shown below:</p>
+      <ul>
+        <% @emails.each do |email| %>
+          <li>
+            <%= email.email %>
+            <% if email.primary %>
+              <span class="glyphicon glyphicon-info-sign text-primary" title="Primary email address"></span>
+            <% end %>
+            <% if email.verified %>
+              <span class="glyphicon glyphicon-ok-sign text-success" title="Verified email address"></span>
+            <% else %>
+              <span class="glyphicon glyphicon-exclamation-sign text-danger"></span> <b>Not verified!</b>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+
+
+      <p>
+        <%= button_to "Attempt Match Again",
+                      match_user_path(current_user),
+                      method: :post, class: 'btn btn-primary' %>
+      </p>
+    <% end %>
+  </div>
 <% end %>
