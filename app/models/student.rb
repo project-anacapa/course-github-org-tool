@@ -19,4 +19,20 @@ class Student < ApplicationRecord
       student.save!
     end
   end
+
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << ['perm', 'email', 'first_name', 'last_name', 'github_username']
+
+      all.each do |user|
+        csv << [
+          user.perm,
+          user.email,
+          user.first_name,
+          user.last_name,
+          user.username
+        ]
+      end
+    end
+  end
 end
