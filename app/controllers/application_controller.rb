@@ -46,9 +46,8 @@ class ApplicationController < ActionController::Base
     def is_instructor?(user=nil)
       user = user || current_user
       instructors = Setting.instructors
-      return !user.blank? and !instructors.blank? and \
-             instructors.kind_of?(Array) and \
-             Setting.instructors.include? user.username
+      return !user.blank? && !instructors.blank? && \
+             instructors.is_a?(Array) && instructors.include?(user.username)
     end
 
     def is_org_member(username=nil)
