@@ -1,12 +1,9 @@
 <% if user_signed_in? %>
   <li><%= link_to 'Sign out', signout_path %></li>
 <% else %>
-  <li><%= link_to 'Sign in', signin_path %></li>
-<% end %>
-<% if user_signed_in? %>
-  <li><%= link_to 'Course', course_path %></li>
-<% end %>
-<% if is_instructor? %>
-  <li><%= link_to 'Users', users_path %></li>
-  <li><%= link_to 'Course Roster', students_path %></li>
+  <li><p class="navbar-btn">
+    <%= link_to signin_path, class: 'btn btn-info' do %>
+      <%= fa_icon "github", text: "Sign in" %>
+    <% end %>
+  </p></li>
 <% end %>
