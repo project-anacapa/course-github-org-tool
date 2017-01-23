@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include RailsSettings::Extend
 
   def self.create_with_omniauth(auth)
     create! do |user|

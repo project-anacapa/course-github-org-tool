@@ -7,13 +7,15 @@ Rails.application.routes.draw do
 
   post '/students/import'
   resources :students
+
+  get '/settings' => 'users#settings'
   resources :users do
     member do
       post 'toggle_instructor_privilege'
       post 'match' => 'users#match_to_student'
     end
   end
-  
+
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin
   get '/signout' => 'sessions#destroy', :as => :signout
