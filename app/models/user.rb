@@ -12,6 +12,14 @@ class User < ApplicationRecord
     end
   end
 
+  def discoverable?
+    self.settings.discoverable == true
+  end
+
+  def self.discoverable_users
+    User.with_settings_for('discoverable').select {|u| u.discoverable? }
+  end
+
   def attempt_match_to_student(client, machine)
     course = Setting.course
     return if not course
