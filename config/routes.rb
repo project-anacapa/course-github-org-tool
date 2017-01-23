@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :students
 
   get '/settings' => 'users#settings'
+  post '/settings' => 'users#update_settings', :as => :update_settings
   resources :users do
     member do
       post 'toggle_instructor_privilege'

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :require_instructor!, :except => [:match_to_student]
-  before_action :correct_user?, :except => [:index, :settings, :set_as_instructor]
+  before_action :correct_user?, :only => [:show]
 
   def index
     @users = User.all
@@ -13,6 +13,11 @@ class UsersController < ApplicationController
 
   def settings
     @user_settings = current_user.settings
+  end
+
+  def update_settings
+    current_user.settings.discoverable = params[:discoverable] == "1"
+    redirect_to settings_path, notice: "Settings have been updated"
   end
 
   def toggle_instructor_privilege
