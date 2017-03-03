@@ -1,12 +1,23 @@
 <% if user_signed_in? %>
-  <li><%= link_to 'Sign out', signout_path %></li>
+  <li class="dropdown user-nav">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <%= github_profile_img_for current_user %>
+      <span class="dropdown-caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li class="dropdown-header">Signed in as <b><%= current_user.username %></b></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="https://github.com/<%= current_user.username %>">GitHub Profile</a></li>
+      <li><a href="https://github.com/<%= @course %>">Course Organization</a></li>
+      <li role="separator" class="divider"></li>
+      <li><%= link_to 'Settings', settings_path %></li>
+      <li><%= link_to 'Sign out', signout_path %></li>
+    </ul>
+  </li>
 <% else %>
-  <li><%= link_to 'Sign in', signin_path %></li>
-<% end %>
-<% if user_signed_in? %>
-  <li><%= link_to 'Course', course_path %></li>
-<% end %>
-<% if is_instructor? %>
-  <li><%= link_to 'Users', users_path %></li>
-  <li><%= link_to 'Course Roster', students_path %></li>
+  <li><p class="navbar-btn">
+    <%= link_to signin_path, class: 'btn btn-info' do %>
+      <%= fa_icon "github", text: "Sign in" %>
+    <% end %>
+  </p></li>
 <% end %>

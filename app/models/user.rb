@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include RailsSettings::Extend
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -9,6 +10,14 @@ class User < ApplicationRecord
         user.name = auth['info']['name'] || ""
       end
     end
+  end
+
+  def discoverable?
+    self.settings.discoverable == true
+  end
+
+  def self.discoverable_users
+    User.with_settings_for('discoverable').select {|u| u.discoverable? }
   end
 
   def attempt_match_to_student(client, machine)

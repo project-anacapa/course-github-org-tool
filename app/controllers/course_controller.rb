@@ -4,7 +4,7 @@ class CourseController < ApplicationController
   def show
     @course_name = Setting.course
     @course_org = nil
-    if @course_name
+    if !@course_name.blank?
       mo = machine_octokit
       @course_org = mo.org(@course_name)
     else
@@ -14,7 +14,7 @@ class CourseController < ApplicationController
   end
 
   def setup
-    if Setting.course
+    if !Setting.course.blank?
       redirect_to course_path, alert: "A course has already been set up for this application"
     else
       client = session_octokit
