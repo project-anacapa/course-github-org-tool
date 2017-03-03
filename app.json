@@ -8,17 +8,30 @@
     "postdeploy": "bundle exec rails db:migrate"
   },
   "env": {
+    "GIT_PROVIDER_URL": {
+      "description": "URL of your git and authentication provider. Optional if using github.com",
+      "value": "github.com"
+    },
+    "OMNIAUTH_STRATEGY": {
+      "description": "Authentication Provider type: one of github, github_enterprise, or gitlab.",
+      "value": "github",
+      "required": true
+    },
     "OMNIAUTH_PROVIDER_KEY": {
-      "description": "Github OAuth application client key."
+      "description": "OAuth application client key.",
+      "required": true
     },
     "OMNIAUTH_PROVIDER_SECRET": {
-      "description": "Github OAuth application client secret."
+      "description": "OAuth application client secret.",
+      "required": true
     },
     "MACHINE_USER_NAME": {
-      "description": "GitHub username of application machine user."
+      "description": "Username of application machine user.",
+      "required": true
     },
     "MACHINE_USER_KEY": {
-      "description": "API Key with (user,admin:org) for the machine user."
+      "description": "API Key with (user,admin:org) for the machine user.",
+      "required": true
     }
   },
   "formation": {
