@@ -150,6 +150,9 @@ GEM
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
+    omniauth-gitlab (1.0.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -293,6 +296,7 @@ DEPENDENCIES
   octokit (~> 4.0)
   omniauth
   omniauth-github
+  omniauth-gitlab
   pg
   puma (~> 3.0)
   rails (~> 5.0.1)
