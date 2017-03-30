@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   helper_method :is_instructor?
   helper_method :is_org_member
 
+
+  include Strategies
+
   private
     def current_user
       @current_user ||= User.where(id: session[:user_id]).first
@@ -67,14 +70,11 @@ class ApplicationController < ActionController::Base
     end
 
     def anon_octokit
-      Octokit::Client.new \
-        :client_id => ENV['OMNIAUTH_PROVIDER_KEY'],
-        :client_secret => ENV['OMNIAUTH_PROVIDER_SECRET']
+      Strategies::GitStrategy.get_instance(nil)
     end
 
     def machine_octokit
-      Octokit::Client.new \
-        :access_token => ENV['MACHINE_USER_KEY']
+      Strategies::GitStrategy.get_instance(ENV['MACHINE_USER_KEY'])
     end
 
     def session_octokit
@@ -82,7 +82,6 @@ class ApplicationController < ActionController::Base
       if token == ""
         raise "You must be signed in"
       end
-      Octokit::Client.new \
-        :access_token => token
+      Strategies::GitStrategy.get_instance(token)
     end
 end
