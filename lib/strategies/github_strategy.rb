@@ -13,6 +13,15 @@ module Strategies
       end
     end
 
+    def is_valid
+      begin
+        @client.check_application_authorization @token
+        true
+      rescue
+        false
+      end
+    end
+
     def emails
       return @client.emails
     end

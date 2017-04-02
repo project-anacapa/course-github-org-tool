@@ -78,10 +78,17 @@ class ApplicationController < ActionController::Base
     end
 
     def session_octokit
-      token = session['oauth_token'] || ""
-      if token == ""
-        raise "You must be signed in"
+      token = session['oauth_token'] || ''
+      if token == ''
+        raise 'You must be signed in'
       end
-      Strategies::GitStrategy.get_instance(token)
+
+      client = Strategies::GitStrategy.get_instance(token)
+      if client.is_valid
+        client
+      else
+        reset_session
+        raise 'Looks like there was an issue authorizing you. Try signing in again!'
+      end
     end
 end

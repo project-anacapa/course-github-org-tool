@@ -18,6 +18,10 @@ module Strategies
       end
     end
 
+    def is_valid
+      true
+    end
+
     def emails
       raise NotImplementedError, 'Use a Specific Implementation'
     end
