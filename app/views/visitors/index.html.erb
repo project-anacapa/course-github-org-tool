@@ -2,7 +2,7 @@
   <%= render 'splash' %>
 <% else %>
   <div class="container">
-    <h3>Welcome to <kbd>course-github-org-tool</kbd>!</h3>
+    <h3>Welcome to <samp>course-github-org-tool</samp>!</h3>
 
     <p>You are signed in!</p>
     <% if !is_course_setup? %>
@@ -12,7 +12,7 @@
       </p>
     <% elsif @member %>
       <p>
-        Congratulations! You've successfully enrolled in `<%= @course %>`!
+        Congratulations! You've successfully enrolled in <samp>`<%= @course %>`</samp>!
         <% if @member == 'active' %>
           Thanks for joining the organization, and good luck in your studies!
         <% else %>
