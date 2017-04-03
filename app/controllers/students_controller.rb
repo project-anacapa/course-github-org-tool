@@ -29,8 +29,12 @@ class StudentsController < ApplicationController
   end
 
   def import
-    Student.import(params[:file])
-    redirect_to students_path, notice: 'Students imported.'
+    if params.has_key? :file
+      Student.import(params[:file])
+      redirect_to students_path, notice: 'Students imported.'
+    else
+      redirect_to :back, alert: 'Please specify a file.'
+    end
   end
 
   # POST /students
