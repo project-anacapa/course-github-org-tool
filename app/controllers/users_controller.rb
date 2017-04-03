@@ -16,28 +16,28 @@ class UsersController < ApplicationController
   end
 
   def update_settings
-    current_user.settings.discoverable = params[:discoverable] == "1"
-    redirect_to settings_path, notice: "Settings have been updated"
+    current_user.settings['discoverable'] = params[:discoverable] == '1'
+    redirect_to settings_path, notice: 'Settings have been updated'
   end
 
   def toggle_instructor_privilege
     user = User.find(params[:id])
     if is_instructor?
       if user == current_user
-        redirect_to users_path, alert: "You can't change yourself"
+        redirect_to users_path, alert: 'You can\'t change yourself'
       elsif is_instructor? user
-        instructors = Setting.instructors
+        instructors = Setting['instructors']
         instructors -= [user.username]
-        Setting.instructors = instructors
+        Setting['instructors'] = instructors
         redirect_to users_path, notice: "Successfully demoted #{user.username} to non-instructor"
       else
-        instructors = Setting.instructors || []
+        instructors = Setting['instructors'] || []
         instructors << user.username
-        Setting.instructors = instructors
+        Setting['instructors'] = instructors
         redirect_to users_path, notice: "Successfully promoted #{user.username} to instructor"
       end
     else
-      redirect_to users_path, alert: "You must be an instructor to elect other instructors"
+      redirect_to users_path, alert: 'You must be an instructor to elect other instructors'
     end
   end
 

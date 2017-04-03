@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
 
   def import
     Student.import(params[:file])
-    redirect_to students_path, notice: "Students imported."
+    redirect_to students_path, notice: 'Students imported.'
   end
 
   # POST /students

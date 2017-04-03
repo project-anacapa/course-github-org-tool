@@ -19,37 +19,37 @@ class ApplicationController < ActionController::Base
     end
 
     def user_signed_in?
-      return true if current_user
+      true if current_user
     end
 
     def correct_user?
       @user = User.find(params[:id])
       unless current_user == @user
-        redirect_to root_url, :alert => "Access denied."
+        redirect_to root_url, :alert => 'Access denied.'
       end
     end
 
     def authenticate_user!
-      if !current_user
+      unless current_user
         redirect_to root_url, :alert => 'You need to sign in for access to this page.'
       end
     end
 
     def require_instructor!
-      if !is_instructor?
+      unless is_instructor?
         redirect_to root_url, :alert => 'You must be an instructor to access this page.'
       end
     end
 
     def is_course_setup?
       course = Setting.course
-      return !course.blank?
+      !course.blank?
     end
 
     def is_instructor?(user=nil)
       user = user || current_user
-      instructors = Setting.instructors
-      return !user.blank? && !instructors.blank? && \
+      instructors = Setting['instructors']
+      !user.blank? && !instructors.blank? && \
              instructors.is_a?(Array) && instructors.include?(user.username)
     end
 
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
           return nil
         end
       end
-      return nil
+      nil
     end
 
     def anon_octokit

@@ -7,12 +7,12 @@
       <!-- <p><%= @course_org.to_h %></p> -->
 
       <% if is_instructor? %>
-        <p><%= link_to "View the current course roster", students_path %></p>
+        <p><%= link_to 'View the current course roster', students_path %></p>
       <% end %>
     <% else %> <!-- no course has been set up yet -->
       <h2>Whoops!</h2>
       <p>Looks like no course has been set up yet. Would you like to set one up now?</p>
-      <p><%= link_to "Set up a new course", course_setup_path %></p>
+      <p><%= link_to 'Set up a new course', course_setup_path %></p>
     <% end %>
   </div>
 </div>

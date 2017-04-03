@@ -18,7 +18,7 @@ module Strategies
     end
 
     def profile_img_url(uid)
-      return "#{@url}/avatars/u/#{uid}"
+      "#{@url}/avatars/u/#{uid}"
     end
 
   end

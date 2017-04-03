@@ -35,7 +35,7 @@
           (<%= m.role %>)
         </td>
         <td>
-          <%= button_to "Select as Course",
+          <%= button_to 'Select as Course',
                         course_set_org_path(org_name: m.organization.login),
                         method: :post, class: 'btn btn-sm btn-primary',
                         data: { confirm: 'Are you sure?' } %>

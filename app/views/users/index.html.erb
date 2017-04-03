@@ -19,12 +19,12 @@
               <td><a href="https://github.com/<%= user.username %>"><%= user.username %></td>
               <td><%= is_instructor? user %></td>
               <% if is_instructor? %>
-              <td><%= button_to "Toggle Instructor",
+              <td><%= button_to 'Toggle Instructor',
                                 toggle_instructor_privilege_user_path(user),
                                 method: :post, class: 'btn btn-sm btn-primary',
                                 data: { confirm: 'Are you sure?' } %></td>
               <% end %>
-              <td><%= link_to "View Profile", user %></td>
+              <td><%= link_to 'View Profile', user %></td>
             </tr>
           <% end %>
         </tbody>

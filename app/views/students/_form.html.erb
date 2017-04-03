@@ -1,7 +1,7 @@
 <%= form_for(student) do |f| %>
   <% if student.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+      <h2><%= pluralize(student.errors.count, 'error') %> prohibited this student from being saved:</h2>
 
       <ul>
       <% student.errors.full_messages.each do |message| %>
@@ -13,30 +13,30 @@
 
   <div class="form-group">
     <%= f.label :perm %>
-    <%= f.text_field :perm, class: "form-control" %>
+    <%= f.text_field :perm, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: "form-control" %>
+    <%= f.text_field :first_name, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: "form-control" %>
+    <%= f.text_field :last_name, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= f.label :email %>
-    <%= f.text_field :email, class: "form-control" %>
+    <%= f.text_field :email, class: 'form-control' %>
   </div>
 
   <div class="form-group">
     <%= f.label :username %>
-    <%= f.text_field :username, class: "form-control" %>
+    <%= f.text_field :username, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Save Student", class: "btn btn-primary" %>
+    <%= f.submit 'Save Student', class: 'btn btn-primary' %>
   </div>
 <% end %>

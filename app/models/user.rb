@@ -6,14 +6,14 @@ class User < ApplicationRecord
       user.provider = auth['provider']
       user.uid = auth['uid']
       if auth['info']
-        user.username = auth['info']['nickname'] || ""
-        user.name = auth['info']['name'] || ""
+        user.username = auth['info']['nickname'] || ''
+        user.name = auth['info']['name'] || ''
       end
     end
   end
 
   def discoverable?
-    self.settings.discoverable == true
+    self.settings['discoverable']
   end
 
   def self.discoverable_users
@@ -22,11 +22,11 @@ class User < ApplicationRecord
 
   def attempt_match_to_student(client, machine)
     course = Setting.course
-    return if not course
+    return unless course
     emails = client.emails
     emails.each do |e|
       student = Student.where(email: e.email).first
-      next if not student
+      next unless student
       student.username = self.username
       student.save!
 
@@ -42,7 +42,8 @@ class User < ApplicationRecord
       end
       return true
     end
-    return false
+
+    false
   end
 
 end

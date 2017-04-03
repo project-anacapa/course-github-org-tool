@@ -1,19 +1,19 @@
 <% if !user_signed_in? %>
-  <%= render "splash" %>
+  <%= render 'splash' %>
 <% else %>
   <div class="container">
-    <h3>Welcome to <tt>course-github-org-tool</tt>!</h3>
+    <h3>Welcome to <kbd>course-github-org-tool</kbd>!</h3>
 
     <p>You are signed in!</p>
     <% if !is_course_setup? %>
       <p>
         Welcome Instructor! It looks like you haven't set up your course yet.
-        Care to <%= link_to "do so now", course_setup_path %>?
+        Care to <%= link_to 'do so now', course_setup_path %>?
       </p>
     <% elsif @member %>
       <p>
         Congratulations! You've successfully enrolled in `<%= @course %>`!
-        <% if @member == "active" %>
+        <% if @member == 'active' %>
           Thanks for joining the organization, and good luck in your studies!
         <% else %>
           There should be a pending invite for you to join the GitHub Organization
@@ -62,7 +62,7 @@
 
 
       <p>
-        <%= button_to "Attempt Match Again",
+        <%= button_to 'Attempt Match Again',
                       match_user_path(current_user),
                       method: :post, class: 'btn btn-primary' %>
       </p>

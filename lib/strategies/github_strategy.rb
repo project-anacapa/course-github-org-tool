@@ -23,27 +23,27 @@ module Strategies
     end
 
     def emails
-      return @client.emails
+      @client.emails
     end
 
     def profile_img_url(uid)
-      return "https://avatars2.githubusercontent.com/u/#{uid}"
+      "https://avatars2.githubusercontent.com/u/#{uid}"
     end
 
     def org(name)
-      return @client.org(name)
+      @client.org(name)
     end
 
     def org_membership(name, params={})
-      return @client.org_membership(name, params)
+      @client.org_membership(name, params)
     end
 
     def org_memberships
-      return @client.org_memberships
+      @client.org_memberships
     end
 
     def update_org_membership(name, params={})
-      return @client.update_org_membership(name, params)
+      @client.update_org_membership(name, params)
     end
 
   end

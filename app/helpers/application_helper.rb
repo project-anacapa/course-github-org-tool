@@ -5,7 +5,7 @@ module ApplicationHelper
       height: "#{height}",
       width: "#{width}",
       alt: "@#{user.username}",
-      class: "avatar"
+      class: 'avatar'
     )
   end
 end

@@ -3,14 +3,13 @@
 
   <%= form_tag(update_settings_path) do -%>
     <p>In order to work in pairs or groups for your assignments, you must be "discoverable" by your classmates.</p>
-    <p>The information that becomes accessible to your fellow classmates if you become "discoverable" includes but is not limited to:
-      <ul>
-        <li>Your name</li>
-        <li>Your school email address</li>
-        <li>Your github username</li>
-        <li>The fact that you are enrolled in this course</li>
-      </ul>
-    </p>
+    <p>The information that becomes accessible to your fellow classmates if you become "discoverable" includes but is not limited to:</p>
+    <ul>
+      <li>Your name</li>
+      <li>Your school email address</li>
+      <li>Your github username</li>
+      <li>The fact that you are enrolled in this course</li>
+    </ul>
     <p>Do you wish to be set as "discoverable" so that you can be found by your classmates?</p>
 
     <div class="checkbox">
@@ -20,6 +19,6 @@
       </label>
     </div>
 
-    <div><%= button_tag 'Save Settings', class: "btn btn-primary" %></div>
+    <div><%= button_tag 'Save Settings', class: 'btn btn-primary' %></div>
   <% end -%>
 </div>

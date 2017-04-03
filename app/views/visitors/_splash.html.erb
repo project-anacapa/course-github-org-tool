@@ -11,13 +11,13 @@
           <div class="col-sm-10">
             <br/> <p>
               This app will allow you to add yourself to the github organization for
-              your course: <b><tt>`<%= Setting.course %>`</tt></b>.
+              your course: <b><kbd>`<%= Setting.course %>`</kbd></b>.
             </p>
             <br/> <p>
               Please click the login button below, and log in with your github.com
               username and password.
             </p>
-            <br/ ><p>
+            <br/><p>
               Then, click the "Authorize" button that appears. This allows the app to
               access the email addresses associated with your account, and your github
               organization memberships.
@@ -37,7 +37,7 @@
       <% end %>
 
       <%= button_to signin_path, method: :get, class: 'btn btn-info btn-lg' do %>
-        <%= fa_icon "github", text: "Sign in with Github" %>
+        <%= fa_icon 'github', text: 'Sign in with Github' %>
       <% end %>
     </div>
     <div class="col-sm-3"></div>

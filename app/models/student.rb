@@ -9,20 +9,20 @@ class Student < ApplicationRecord
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       next if row.values.all?(&:nil?)
-      perm = row["Perm #"]
+      perm = row['Perm #']
 
       student = Student.find_by(perm: perm) || new
       student.perm = perm
-      student.first_name = row["Student First Middle"]
-      student.last_name = row["Student Last"]
-      student.email = row["Email"]
+      student.first_name = row['Student First Middle']
+      student.last_name = row['Student Last']
+      student.email = row['Email']
       student.save!
     end
   end
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      csv << ['perm', 'email', 'first_name', 'last_name', 'github_username']
+      csv << %w[perm email first_name last_name github_username]
 
       all.each do |user|
         csv << [
