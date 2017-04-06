@@ -34,6 +34,10 @@ module Strategies
       @client.org(name)
     end
 
+    def org_repos(org)
+      @client.org_repos(org)
+    end
+
     def org_membership(name, params={})
       @client.org_membership(name, params)
     end
