@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :correct_user?
   helper_method :is_course_setup?
+  helper_method :require_course!
   helper_method :is_instructor?
   helper_method :is_org_member
-
 
   include Strategies
 
@@ -44,6 +44,12 @@ class ApplicationController < ActionController::Base
     def is_course_setup?
       course = Setting.course
       !course.blank?
+    end
+
+    def require_course!
+      unless is_course_setup?
+        redirect_to course_setup_path, :alert => 'You need to set up a course before you can access this page.'
+      end
     end
 
     def is_instructor?(user=nil)
