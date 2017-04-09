@@ -15,13 +15,14 @@ module Strategies
 
     def is_valid
       begin
-        @client.check_application_authorization @token
-        true
-      rescue
-        false
+        _ = @client.user  # this should work if the token is valid
+        return true
+      rescue Exception => e
+        puts e
+        return false
       end
     end
-
+9
     def emails
       @client.emails
     end
