@@ -1,6 +1,5 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_instructor!
   before_action :require_course!
 
   def index

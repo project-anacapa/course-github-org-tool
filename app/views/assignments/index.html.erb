@@ -1,10 +1,24 @@
 <div class="container">
   <h1>Course Assignments</h1>
 
-  <p>Lorem ipsum dolor sit amet.</p>
+  <h3>Assignment Master Repos</h3>
   <ul>
-  <% @repos.each do |repo| %>
+  <% assignment_repos(@repos).each do |repo| %>
     <li><%= repo.name %></li>
   <% end %>
+  </ul>
+
+  <h3>Student Code Repos</h3>
+  <ul>
+    <% student_repos(@repos).each do |repo| %>
+      <li><%= repo.name %></li>
+    <% end %>
+  </ul>
+
+  <h3>All Repos</h3>
+  <ul>
+    <% @repos.each do |repo| %>
+      <li><%= repo.name %></li>
+    <% end %>
   </ul>
 </div>
