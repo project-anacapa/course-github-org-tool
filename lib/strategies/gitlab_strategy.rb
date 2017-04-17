@@ -29,6 +29,10 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
+    def repo(repo, params={})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def update_org_membership(name, params={})
       raise NotImplementedError, 'TODO: Implement'
     end

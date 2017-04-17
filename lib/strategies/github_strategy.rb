@@ -13,6 +13,10 @@ module Strategies
       end
     end
 
+    def get_client
+      @client
+    end
+
     def is_valid
       begin
         _ = @client.user  # this should work if the token is valid
@@ -45,6 +49,10 @@ module Strategies
 
     def org_memberships
       @client.org_memberships
+    end
+
+    def repo(repo, params={})
+      @client.repo(repo, params)
     end
 
     def update_org_membership(name, params={})

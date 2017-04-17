@@ -46,6 +46,10 @@ module Strategies
       raise NotImplementedError, 'Use a Specific Implementation'
     end
 
+    def repo(repo, params={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def update_org_membership(name, params={})
       raise NotImplementedError, 'Use a Specific Implementation'
     end

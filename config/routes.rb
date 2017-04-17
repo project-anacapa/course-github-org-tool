@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post '/students/import'
   resources :students
 
-  get '/assignments' => 'assignments#index'
+  resources :assignments, only: [:index, :show]
 
   get '/settings' => 'users#settings'
   post '/settings' => 'users#update_settings', :as => :update_settings
