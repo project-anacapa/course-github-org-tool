@@ -21,29 +21,31 @@ To deploy this app on Heroku, you will need
 
 1. A Heroku account.  The "free tier" is sufficient.
 
-1. A github organization for your course, to which the instructor has owner access.
+1. A github organization for your course, to which the instructor has owner access.  We will refer to that organization by the example name `UCSB-CS99-S15` in these instructions.     
+    * You will create an OMNIAUTH_PROVIDER_KEY and an OMNIAUTH_PROVIDER_SECRET that is associated with this github organization at a later step.    
+    * Note that students will sign in to the application using their github id.  When they do, the name of your organization
+      will appear.
+
+1. Optionally, a name for your application.  If you don't choose one, heroku will choose one for you such as `mashed-potatoes-85352`.  You may want to think of a better one in advance, such as `ucsb-cs99-s15-signup`.  But that's up to you.
 
 1. Values for four environment variables that authenticate the application to github in various ways.  We'll explain how to set up each of these in just a moment.  Each of these takes only a minute or two to obtain.   Here's a list of them for reference&mdash;we'll explain how to get each of them below.
     * OMNIAUTH_PROVIDER_KEY
-    * OMNIAUTH_PROVIDER_SECRET
+    * OMNIAUTH_PROVIDER_KEY
     * MACHINE_USER_NAME
     * MACHINE_USER_KEY
 
-1. Optionally, a name for your application.  If you don't choose one, heroku will choose one for you such as `mashed-potatoes-85352`.  You may want to think of a better one in advance, such as `ucsb-cs16-w17-signup`.  But that's up to you.
-
 Once you have those three things ready, you can deploy to Heroku with a few mouse clicks.
 
-Steps to take
--------------
+# Steps to take
 
-Open three windows: 
-* one for these instructions
-* a second one for clicking the purple "deploy to heroku button"
-* a third one for getting the values for `OMNIAUTH_PROVIDER_KEY, OMNIAUTH_PROVIDER_SECRET, MACHINE_USER_NAME, MACHINE_USER_KEY`
+## Step 1: Generate your `OMNIAUTH_PROVIDER_KEY` and `OMNIAUTH_PROVIDER_KEY`
 
-In the second window, click this pretty purple button: [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Before you do this step, you will need:
 
-You'll be asked for the name of your application.  You'll then be asked for the values of the environment variables.  Here's how to get them:
+* Your course github organization name
+* The name of the heroku app you are going to create
+
+First: while signed in as a github user that has owner access to the course organization (e.g. `UCSB-CS99-S15`), and navigate to the "Register a new OAuth application" screen.  This is  accessed via "Settings", then under "Developer Settings", the tab called "OAuth Applications", and then the "Register a new application" button.  The URL is likely of the form: <https://github.com/organizations/UCSB-CS99-S15/settings/applications/new>
 
 * OMNIAUTH_PROVIDER_KEY and OMNIAUTH_PROVIDER_SECRET correspond to the "Github OAuth Client Id" and 
     "Github OAuth Client Secret".  These allow the application to authenticate to Github.    
@@ -52,24 +54,26 @@ You'll be asked for the name of your application.  You'll then be asked for the 
     
     You'll be asked for these pieces of information
     
-    * `Application name`: Something like: `ucsb-cs16-w17-signup`
+    * `Application name`: Something like: `ucsb-cs99-s15-signup`
     
         You can enter anything you like, but you should choose something that will be meaningful
         to the students enrolling in your course.  They'll be asked whether they trust this application with their
         github credentials.   
         
         
-    * Homepage URL: This should be `https://appname.herokuapp.com` (e.g. `https://ucsb-cs16-w17-signup.herokuapp.com`, not
+    * Homepage URL: This should be `https://appname.herokuapp.com` (e.g. `https://ucsb-cs99-s15-signup.herokuapp.com`, not
         literally `appname`.)
 
     * Application description: Optional, but here you could put something like "Registration for github accounts
-        for Prof. Smith's CS123 Course at Narnia University."
+        for Prof. Smith's CS99 Course at Narnia University."
         
-    * Authorization callback URL: Should be: `https://<<your-url>>/auth/github/callback`, where `<<your-url>>` is, for example, `ucsb-cs16-w17-signup.herokuapp.com`.   It is important to get this exact, or the OAuth signin will not work properly.
+    * Authorization callback URL: Should be: `https://<<your-url>>/auth/github/callback`, where `<<your-url>>` is, for example, `ucsb-cs99-s15-signup.herokuapp.com`.   It is important to get this exact, or the OAuth signin will not work properly.
 
-    
-    Once you enter all of this, you'll get back a Github-Client-Id, and a Github-Client-Secret.  Copy these values in for
-    OMNIAUTH_PROVIDER_KEY and OMNIAUTH_PROVIDER_SECRET.
+Once you enter all of this, you'll get back a Github-Client-Id, and a Github-Client-Secret.  Keep this window open so that you can copy these values in for OMNIAUTH_PROVIDER_KEY and OMNIAUTH_PROVIDER_SECRET when you get to step 3 (deploying on Heroku).
+
+## Step 2: Create your `MACHINE_USER_NAME` and `MACHINE_USER_KEY`
+
+You now need to create these two values:
 
 * MACHINE_USER_NAME  This is the userid of a github "machine user" as explained 
     here:     <https://developer.github.com/guides/managing-deploy-keys/#machine-users>.   
@@ -89,7 +93,21 @@ You'll be asked for the name of your application.  You'll then be asked for the 
     token confers the power to take any action in github that the machine user is authorized to take.)  In particular,
     do not store it in any github repo, or anywhere that it could potentially leak.
 
-Once you've supplied those four value, you should be able to navigate to the application at `https://appname.herokuapp.com`.
+Keep this window open so that you have these values available for step 3, deploying to Heroku.
+
+## Step 3: Deploy your Application on Heroku
+
+You need these windows open:
+* the window from Step 1 where you created the values for `OMNIAUTH_PROVIDER_KEY` and `OMNIAUTH_PROVIDER_SECRET` 
+* the window from Step 2 where you created the values for `MACHINE_USER_NAME` and `MACHINE_USER_KEY`
+* this window (for these instructions)
+* a fourth window you will get by shift-clicking the purple  "deploy to heroku button".
+
+So, now, shift-click this pretty purple button: [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+You'll be asked for the name of your application.  You'll then be asked for the values of those four environment variables.
+
+Once you've supplied those you should be able to navigate to the application at `https://appname.herokuapp.com`.
 
 Login as the instructor, and then begin setting up the course by choosing an organization, and uploading a course roster.
 
