@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
                       :uid => auth['uid'].to_s).first || User.create_with_omniauth(auth)
     reset_session
     session[:user_id] = user.id
-    session[:oauth_token] = auth.credentials.token
+    session[:oauth_token] = auth[:credentials][:token]
     user.attempt_match_to_student(session_octokit, machine_octokit)
     redirect_to root_url, :notice => 'Signed in!'
   end

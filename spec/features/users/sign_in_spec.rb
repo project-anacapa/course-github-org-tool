@@ -10,9 +10,8 @@ feature 'Sign in', :omniauth do
   #   When I sign in
   #   Then I see a success message
   scenario 'user can sign in with valid account' do
-    # signin
-    # expect(page).to have_content("Sign out")
-    expect true
+    signin
+    expect(page).to have_content("Sign out")
   end
 
   # Scenario: User cannot sign in with invalid account
