@@ -15,7 +15,9 @@ class AssignmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = machine_octokit.repo("#{Setting.course}/#{params[:id]}")
+      repo_name = "#{Setting.course}/#{params[:id]}"
+      @assignment = machine_octokit.repo(repo_name)
+      @spec = machine_octokit.contents(repo_name, '.anacapa/assignment_spec.json')
     end
 
 end

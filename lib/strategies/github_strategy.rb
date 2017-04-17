@@ -29,7 +29,11 @@ module Strategies
     end
 
     def contents(repo, path, ref="master")
-      @client.contents(repo, :path => path, :ref => ref)
+      begin
+        @client.contents(repo, :path => path, :ref => ref)
+      rescue
+        nil
+      end
     end
 9
     def emails
@@ -57,7 +61,11 @@ module Strategies
     end
 
     def repo(repo, params={})
-      @client.repo(repo, params)
+      begin
+        @client.repo(repo, params)
+      rescue
+        nil
+      end
     end
 
     def update_org_membership(name, params={})
