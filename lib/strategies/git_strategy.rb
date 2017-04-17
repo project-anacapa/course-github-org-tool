@@ -22,6 +22,10 @@ module Strategies
       true
     end
 
+    def contents(repo, path, ref="master")
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def emails
       raise NotImplementedError, 'Use a Specific Implementation'
     end

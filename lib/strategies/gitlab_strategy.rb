@@ -5,6 +5,10 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
+    def contents(repo, path, ref="master")
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def emails
       raise NotImplementedError, 'TODO: Implement'
     end

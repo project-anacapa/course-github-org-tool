@@ -13,6 +13,7 @@ module Strategies
       end
     end
 
+    # TODO: REMOVE WHEN NOT IN DEVELOPMENT PHASE!
     def get_client
       @client
     end
@@ -25,6 +26,10 @@ module Strategies
         puts e
         return false
       end
+    end
+
+    def contents(repo, path, ref="master")
+      @client.contents(repo, :path => path, :ref => ref)
     end
 9
     def emails
