@@ -4,7 +4,7 @@ FactoryGirl.define do
     name Faker::Name.name
     username {
       Faker::Internet.unique.user_name(
-          "#{first_name} #{last_name}", %w(. _ -)
+          "#{name}", %w(. _ -)
       )
     }
   end
