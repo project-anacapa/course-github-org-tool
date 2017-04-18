@@ -23,7 +23,7 @@ module Strategies
     end
 
     def org_membership(name, params={})
-      raise NotImplementedError, 'TODO: Implement'
+      {:role => 'admin'}
     end
 
     def org_memberships
