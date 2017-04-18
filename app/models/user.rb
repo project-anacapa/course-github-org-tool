@@ -21,7 +21,7 @@ class User < ApplicationRecord
   end
 
   def attempt_match_to_student(client, machine)
-    course = Setting.course
+    course = ENV['COURSE_ORGANIZATION']
     return unless course
     emails = client.emails
     emails.each do |e|
@@ -44,6 +44,40 @@ class User < ApplicationRecord
     end
 
     false
+  end
+
+
+  def instructorize(client, machine)
+    course = ENV['COURSE_ORGANIZATION']
+    begin
+      m = client.org_membership(course, { user: self.username })
+
+      # if the user is not an admin, then ignore them for now
+      return false unless m['role'] == "admin"
+
+      # add current user as an instructor
+      instructors = Setting['instructors'] || []
+      instructors << self.username
+      Setting.instructors = instructors
+
+      # add machine user as admin to the organization (idempotent operation)
+      client.update_org_membership(course, {
+          role: 'admin',
+          state: 'pending',
+          user: ENV['MACHINE_USER_NAME']
+      })
+      machine.update_org_membership(course, {
+          state: 'active',
+      })
+
+      # the course is now set up
+      Setting['course_setup'] = true
+      true
+    rescue Exception => e
+      # if the user is not even part of the organization, ignore them
+      raise e
+      # false
+    end
   end
 
 end

@@ -2,6 +2,7 @@
 defaults: &defaults
   discoverable: false
   instructors: []
+  course_setup: false
 
 development:
   <<: *defaults

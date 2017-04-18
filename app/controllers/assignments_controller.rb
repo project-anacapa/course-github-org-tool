@@ -1,10 +1,9 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_course!
   before_action :set_assignment, only: [:show]
 
   def index
-    @repos = machine_octokit.org_repos(Setting.course)
+    @repos = machine_octokit.org_repos(course_org_name)
   end
 
   # GET /assignments/foo-bar
@@ -15,7 +14,7 @@ class AssignmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = machine_octokit.repo("#{Setting.course}/#{params[:id]}")
+      @assignment = machine_octokit.repo("#{course_org_name}/#{params[:id]}")
     end
 
 end

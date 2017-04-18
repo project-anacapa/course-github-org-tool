@@ -2,17 +2,11 @@
   <div class="row">
     <h1>Current Academic Course</h1>
 
-    <% if @course_org %> <!-- a course is already set up -->
-      <h2>Course: <a href="https://github.com/<%= @course_org.login %>"><%= @course_org.login %></a></h2>
-      <!-- <p><%= @course_org.to_h %></p> -->
+    <h2>Course: <a href="https://github.com/<%= @course_org.login %>"><%= @course_org.login %></a></h2>
+    <!-- <p><%= @course_org.to_h %></p> -->
 
-      <% if is_instructor? %>
-        <p><%= link_to 'View the current course roster', students_path %></p>
-      <% end %>
-    <% else %> <!-- no course has been set up yet -->
-      <h2>Whoops!</h2>
-      <p>Looks like no course has been set up yet. Would you like to set one up now?</p>
-      <p><%= link_to 'Set up a new course', course_setup_path %></p>
+    <% if is_instructor? %>
+      <p><%= link_to 'View the current course roster', students_path %></p>
     <% end %>
   </div>
 </div>
