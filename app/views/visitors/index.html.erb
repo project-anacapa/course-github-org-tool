@@ -6,9 +6,14 @@
 
     <p>You are signed in!</p>
     <% if !is_course_setup? %>
-      <p>
-        Welcome Instructor! It looks like you haven't set up your course yet.
-        You should not be seeing this message!
+      <p>Uh oh! This course has not been properly set up yet. As a result, you may not be able to access the full
+        functionality of this website.</p>
+      <p>If you are the instructor trying to sign in for the first time, ensure that you have admin/owner access to
+        the configured GitHub Organization (
+          <a href="https://github.com/<%= course_org_name %>"><%= course_org_name %></a>
+        ).
+        <br/>
+        Once you do, please <%= link_to 'sign out', signout_path %> of this site and sign back in again.
       </p>
     <% elsif @member %>
       <p>
