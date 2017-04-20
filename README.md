@@ -172,6 +172,11 @@ Contributing
 
 TODO
 
+Development
+-----------
+
+Helpful tool for roster upload: <https://github.com/pconrad/faker-try-egrades>
+
 Credits
 -------
 
