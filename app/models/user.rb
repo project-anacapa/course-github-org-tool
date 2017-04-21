@@ -31,7 +31,7 @@ class User < ApplicationRecord
       student.save!
 
       begin
-        # if already a member, skip (will raise exception if not a member)
+        # if already a member, skip (this function will raise exception if not a member)
         machine.org_membership(course, { user: self.username })
       rescue
         machine.update_org_membership(course, {
@@ -73,10 +73,9 @@ class User < ApplicationRecord
       # the course is now set up
       Setting['course_setup'] = true
       true
-    rescue Exception => e
-      # if the user is not even part of the organization, ignore them
-      raise e
-      # false
+    rescue
+      # if the user is not even part of the organization or the organization doesn't exist, ignore them
+      false
     end
   end
 
