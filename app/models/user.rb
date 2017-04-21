@@ -12,6 +12,13 @@ class User < ApplicationRecord
     end
   end
 
+  def is_instructor?
+    instructors = Setting['instructors']
+    !instructors.blank? && \
+        instructors.is_a?(Array) && \
+        instructors.include?(self.username)
+  end
+
   def discoverable?
     self.settings['discoverable']
   end

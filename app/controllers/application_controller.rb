@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   helper_method :is_course_setup?
   helper_method :course_org?
   helper_method :course_org_name
-  helper_method :is_instructor?
   helper_method :is_org_member
 
   include Strategies
@@ -37,7 +36,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_instructor!
-      unless is_instructor?
+      unless current_user.is_instructor?
         redirect_to root_url, :alert => 'You must be an instructor to access this page.'
       end
     end
@@ -56,13 +55,6 @@ class ApplicationController < ActionController::Base
 
     def course_org_name
       ENV['COURSE_ORGANIZATION']
-    end
-
-    def is_instructor?(user=nil)
-      user = user || current_user
-      instructors = Setting['instructors']
-      !user.blank? && !instructors.blank? && \
-             instructors.is_a?(Array) && instructors.include?(user.username)
     end
 
     def is_org_member(username=nil)

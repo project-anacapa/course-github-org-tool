@@ -22,10 +22,10 @@ class UsersController < ApplicationController
 
   def toggle_instructor_privilege
     user = User.find(params[:id])
-    if is_instructor?
+    if current_user.is_instructor?
       if user == current_user
         redirect_to users_path, alert: 'You can\'t change yourself'
-      elsif is_instructor? user
+      elsif user.is_instructor?
         instructors = Setting['instructors']
         instructors -= [user.username]
         Setting['instructors'] = instructors
