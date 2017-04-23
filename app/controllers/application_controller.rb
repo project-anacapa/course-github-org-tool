@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
         begin
           mo = machine_octokit
           membership = mo.org_membership(course_org_name, {user: username })
-          return membership.state
+          return membership[:state]
         rescue Octokit::NotFound
           return nil
         end

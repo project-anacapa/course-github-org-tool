@@ -3,11 +3,11 @@ class User < ApplicationRecord
 
   def self.create_with_omniauth(auth)
     create! do |user|
-      user.provider = auth['provider']
-      user.uid = auth['uid']
-      if auth['info']
-        user.username = auth['info']['nickname'] || ''
-        user.name = auth['info']['name'] || ''
+      user.provider = auth[:provider]
+      user.uid = auth[:uid]
+      if auth[:info]
+        user.username = auth[:info][:nickname] || ''
+        user.name = auth[:info][:name] || ''
       end
     end
   end
@@ -32,7 +32,7 @@ class User < ApplicationRecord
     return unless course
     emails = client.emails
     emails.each do |e|
-      student = Student.where(email: e.email).first
+      student = Student.where(email: e[:email]).first
       next unless student
       student.username = self.username
       student.save!
@@ -60,7 +60,7 @@ class User < ApplicationRecord
       m = client.org_membership(course, { user: self.username })
 
       # if the user is not an admin, then ignore them for now
-      return false unless m['role'] == "admin"
+      return false unless m[:role].eql? "admin"
 
       # add current user as an instructor
       instructors = Setting['instructors'] || []
