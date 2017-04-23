@@ -7,7 +7,12 @@ module Strategies
     end
 
     def emails
-      ['mockuser@example.org']
+      [{
+        :email      => "mockuser@example.org",
+        :primary    => true,
+        :verified   => true,
+        :visibility => nil
+      }]
     end
 
     def profile_img_url(uid)
@@ -23,7 +28,7 @@ module Strategies
     end
 
     def org_membership(name, params={})
-      {:role => 'admin'}
+      {:role => 'member', :state => 'active'}
     end
 
     def org_memberships
@@ -35,7 +40,7 @@ module Strategies
     end
 
     def update_org_membership(name, params={})
-      raise NotImplementedError, 'TODO: Implement'
+      'ok'
     end
 
   end
