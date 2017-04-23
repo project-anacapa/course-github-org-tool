@@ -56,10 +56,23 @@ feature 'Course Setup' do
     expect(page).to have_content("Welcome")
     expect(Setting.instructors).to eq(['mockuser'])
     expect(Setting.course_setup).to be_truthy
+
+    visit students_path
+    expect(page).to have_css('#students-list', :text => '')
   end
 
-  scenario 'initially no instructors' do
-    expect(Setting.instructors).to eq([])
+  # Scenario: Initial course setup means no students
+  #   Given I am the first user to sign in to the application
+  #   And I am able to set up the course
+  #   When I sign in and look at the course roster
+  #   Then it should have no students
+  scenario 'initial course setup means no students' do
+    allow_any_instance_of(Strategies::GitTestStrategy).to receive(:org_membership).and_return(
+        {:role => 'admin', :state => 'active'}
+    )
+    signin
+    visit students_path
+    expect(page).to have_css('#students-list', :text => '')
   end
 
 end
