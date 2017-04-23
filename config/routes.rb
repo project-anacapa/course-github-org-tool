@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root to: 'visitors#index'
 
+  get 'course_error' => 'visitors#course_error'
+
   get 'course' => 'course#show'
-  get 'course/setup'
-  post 'course/set_org'
 
   post '/students/import'
   resources :students

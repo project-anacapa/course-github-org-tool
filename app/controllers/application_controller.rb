@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :correct_user?
   helper_method :is_course_setup?
-  helper_method :require_course!
-  helper_method :is_instructor?
+  helper_method :course_org?
+  helper_method :course_org_name
   helper_method :is_org_member
 
   include Strategies
@@ -36,38 +36,36 @@ class ApplicationController < ActionController::Base
     end
 
     def require_instructor!
-      unless is_instructor?
+      unless current_user.is_instructor?
         redirect_to root_url, :alert => 'You must be an instructor to access this page.'
       end
     end
 
     def is_course_setup?
-      course = Setting.course
-      !course.blank?
-    end
-
-    def require_course!
-      unless is_course_setup?
-        redirect_to course_setup_path, :alert => 'You need to set up a course before you can access this page.'
+      unless course_org?
+        redirect_to course_error_url, :alert => 'You must set up a course organization before using this application.'
       end
+      s = Setting.course_setup
+      !s.blank? && s
     end
 
-    def is_instructor?(user=nil)
-      user = user || current_user
-      instructors = Setting['instructors']
-      !user.blank? && !instructors.blank? && \
-             instructors.is_a?(Array) && instructors.include?(user.username)
+    def course_org?
+      !course_org_name.blank?
+    end
+
+    def course_org_name
+      ENV['COURSE_ORGANIZATION']
     end
 
     def is_org_member(username=nil)
       if not username and current_user
         username = current_user.username
       end
-      if username and Setting.course
+      if username and course_org_name
         begin
           mo = machine_octokit
-          membership = mo.org_membership(Setting.course, { user: username })
-          return membership.state
+          membership = mo.org_membership(course_org_name, {user: username })
+          return membership[:state]
         rescue Octokit::NotFound
           return nil
         end

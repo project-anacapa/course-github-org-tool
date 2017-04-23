@@ -6,6 +6,12 @@ module Strategies
     end
 
     def self.get_instance(token)
+      # if in test environment, return mocked strategy
+      if ENV['RAILS_ENV'] == "test"
+        return GitTestStrategy.new(token)
+      end
+
+      # otherwise check the omniauth_strategy environment variable
       case ENV['OMNIAUTH_STRATEGY']
       when 'github'
         return GitHubStrategy.new(token)

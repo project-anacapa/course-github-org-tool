@@ -1,10 +1,9 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_course!
   before_action :set_assignment, only: [:show]
 
   def index
-    @repos = machine_octokit.org_repos(Setting.course)
+    @repos = machine_octokit.org_repos(course_org_name)
   end
 
   # GET /assignments/foo-bar

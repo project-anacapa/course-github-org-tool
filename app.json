@@ -2,7 +2,7 @@
   "name": "Course Github Org Tool",
   "description": "A tool to manage students in github organizations for courses",
   "keywords": [],
-  "repository": "https://github.com/UCSB-CS-Using-GitHub-In-Courses/course-github-org-tool/tree/development",
+  "repository": "https://github.com/project-anacapa/course-github-org-tool/tree/development",
   "success_url": "/",
   "scripts": {
     "postdeploy": "bundle exec rails db:migrate"
@@ -10,11 +10,16 @@
   "env": {
     "GIT_PROVIDER_URL": {
       "description": "URL of your git and authentication provider. Optional if using github.com",
-      "value": "github.com"
+      "value": "github.com",
+      "required": true
     },
     "OMNIAUTH_STRATEGY": {
       "description": "Authentication Provider type: one of github, github_enterprise, or gitlab.",
       "value": "github",
+      "required": true
+    },
+    "COURSE_ORGANIZATION": {
+      "description": "The name of your github organization",
       "required": true
     },
     "OMNIAUTH_PROVIDER_KEY": {
