@@ -3,5 +3,7 @@
 
   <p><%= @assignment %></p>
 
-  <pre><%= Base64.decode64(@spec.content) %></pre>
+  <% unless @spec.blank? %>
+    <pre><%= Base64.decode64(@spec.content) %></pre>
+  <% end %>
 </div>
