@@ -9,7 +9,7 @@ defaults: &defaults
 development:
   <<: *defaults
   features:
-    anacapa_repos: false
+    anacapa_repos: true
 
 test:
   <<: *defaults

@@ -5,7 +5,7 @@ module FeaturesHelper
       when 'features.anacapa_repos'
         FeaturesHelper.anacapa_repos?
       else
-        Setting[feature]
+        Setting["features.#{feature}"]
     end
   end
 
