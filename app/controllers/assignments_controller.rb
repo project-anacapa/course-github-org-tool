@@ -1,5 +1,6 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!
+  before_action { require_feature! 'anacapa_repos' }
   before_action :set_assignment, only: [:show]
 
   def index

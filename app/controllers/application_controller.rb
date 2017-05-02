@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  helper_method :require_feature!
+  helper_method :not_found
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
@@ -14,6 +16,17 @@ class ApplicationController < ActionController::Base
   include Strategies
 
   private
+
+    def require_feature!(feature)
+      unless FeaturesHelper.feature_enabled?(feature)
+        not_found
+      end
+    end
+
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
+    end
+
     def current_user
       @current_user ||= User.where(id: session[:user_id]).first
     end

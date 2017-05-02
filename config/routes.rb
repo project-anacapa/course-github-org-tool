@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :students
 
   resources :assignments, only: [:index, :show]
+  resources :admin, only: [:index]
 
   get '/settings' => 'users#settings'
   post '/settings' => 'users#update_settings', :as => :update_settings

@@ -1,0 +1,4 @@
+<%# add navigation links to this file %>
+<% if !current_user.nil? && current_user.is_instructor? %>
+  <li><%= link_to 'Admin', admin_index_path %></li>
+<% end %>

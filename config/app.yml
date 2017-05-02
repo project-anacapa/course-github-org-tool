@@ -3,12 +3,18 @@ defaults: &defaults
   discoverable: false
   instructors: []
   course_setup: false
+  features:
+    anacapa_repos: false
 
 development:
   <<: *defaults
+  features:
+    anacapa_repos: true
 
 test:
   <<: *defaults
+  features:
+    anacapa_repos: true
 
 production:
   <<: *defaults
