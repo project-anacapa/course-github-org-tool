@@ -1,0 +1,6 @@
+<%# add navigation links to this file %>
+<% if FeaturesHelper.feature_enabled?('admin_panel') %>
+  <% if !current_user.nil? && current_user.is_instructor? %>
+    <li><%= link_to 'Admin', admin_index_path %></li>
+  <% end %>
+<% end %>
