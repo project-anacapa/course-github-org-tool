@@ -1,2 +1,16 @@
-<h1>Admin#index</h1>
-<p>Find me in app/views/admin/index.html.erb</p>
+<div class="container">
+  <h1>Application Settings and Configurations</h1>
+
+  <p>Configured during setup phase:</p>
+  <ul>
+    <li><strong>GIT_PROVIDER_URL</strong>: <%= ENV['GIT_PROVIDER_URL'] %></li>
+    <li><strong>OMNIAUTH_STRATEGY</strong>: <%= ENV['OMNIAUTH_STRATEGY'] %></li>
+    <li><strong>COURSE_ORGANIZATION</strong>: <%= ENV['COURSE_ORGANIZATION'] %></li>
+    <li><strong>MACHINE_USER_NAME</strong>: <%= ENV['MACHINE_USER_NAME'] %></li>
+  </ul>
+
+  <p>For obvious reasons, secrets and keys are hidden in this view.</p>
+
+  <!-- TODO: create form for enabling/disabling features -->
+  <!-- side-note: some features might require additional configurations... add those here as well -->
+</div>

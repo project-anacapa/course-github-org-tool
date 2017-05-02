@@ -5,19 +5,16 @@ defaults: &defaults
   course_setup: false
   features:
     anacapa_repos: false
-    admin_panel: false
 
 development:
   <<: *defaults
   features:
     anacapa_repos: true
-    admin_panel: true
 
 test:
   <<: *defaults
   features:
     anacapa_repos: true
-    admin_panel: true
 
 production:
   <<: *defaults
