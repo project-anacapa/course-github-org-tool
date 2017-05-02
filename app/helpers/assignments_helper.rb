@@ -12,13 +12,19 @@ module AssignmentsHelper
     repos.select { |repo| is_assignment? repo.name }
   end
 
-  def student_repos(repos)
+  def student_repos(repos, student=nil)
     sub_index = 'assignment-'.length
     # get the list of valid assignment names (omitting the starting 'assignment-')
     assignments = assignment_repos(repos).map {|repo| repo.name[sub_index..-1]}
 
     # get only repos with names that correspond to valid and known assignments
-    repos.select { |repo| is_student_repo? assignments, repo.name }
+    ret = repos.select { |repo| is_student_repo? assignments, repo.name }
+
+    if student.blank?
+      ret
+    else
+      ret.select { |repo| machine_octokit.collaborator? repo.name, student }
+    end
   end
 
 end

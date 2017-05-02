@@ -6,6 +6,14 @@ module Strategies
       @token = token
     end
 
+    def collaborator?(repo, collaborator, options = {})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
+    def contents(repo, path, ref="master")
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def emails
       [{
         :email      => "mockuser@example.org",

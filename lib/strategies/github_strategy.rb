@@ -28,6 +28,10 @@ module Strategies
       end
     end
 
+    def collaborator?(repo, collaborator, options = {})
+      @client.collaborator?(repo, collaborator, options=options)
+    end
+
     def contents(repo, path, ref="master")
       begin
         @client.contents(repo, :path => path, :ref => ref)

@@ -28,6 +28,10 @@ module Strategies
       true
     end
 
+    def collaborator?(repo, collaborator, options = {})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def contents(repo, path, ref="master")
       raise NotImplementedError, 'Use a Specific Implementation'
     end
