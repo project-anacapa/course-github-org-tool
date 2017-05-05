@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :assignments, only: [:index, :show]
   resources :admin, only: [:index]
+  post '/hooks/github' => 'hooks#github', :as => :github_hook
 
   get '/settings' => 'users#settings'
   post '/settings' => 'users#update_settings', :as => :update_settings
