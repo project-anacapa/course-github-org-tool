@@ -62,7 +62,7 @@ class User < ApplicationRecord
       # if the user is not an admin, then ignore them for now
       return false unless m[:role].eql? "admin"
 
-      # add current user as an instructor
+      # since the user is an admin, add current user as an instructor
       instructors = Setting['instructors'] || []
       instructors << self.username
       Setting.instructors = instructors
@@ -81,7 +81,7 @@ class User < ApplicationRecord
       Setting['course_setup'] = true
       true
     rescue
-      # if the user is not even part of the organization or the organization doesn't exist, ignore them
+      # if the user is not part of the organization or the organization doesn't exist, ignore them
       false
     end
   end
