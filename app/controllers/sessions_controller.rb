@@ -15,11 +15,15 @@ class SessionsController < ApplicationController
     reset_session
     session[:user_id] = user.id
     session[:oauth_token] = auth[:credentials][:token]
+
+    # on login, check if user is admin of course org and make them an instructor if need be
+    user.instructorize(session_octokit, machine_octokit)
+
+    # if the course has been 'set up', then also try to match logged in user to student info in roster
     if is_course_setup?
       user.attempt_match_to_student(session_octokit, machine_octokit)
-    else
-      user.instructorize(session_octokit, machine_octokit)
     end
+
     redirect_to root_url, :notice => 'Signed in!'
   end
 
