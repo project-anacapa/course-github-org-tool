@@ -28,6 +28,10 @@ module Strategies
       true
     end
 
+    def add_org_hook(org, config, options={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def emails
       raise NotImplementedError, 'Use a Specific Implementation'
     end
