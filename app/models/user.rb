@@ -77,6 +77,17 @@ class User < ApplicationRecord
           state: 'active',
       })
 
+      begin
+        # set up web-hooks in organization
+        machine.add_org_hook(
+            course,
+            { :url => github_hook_url, :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
+            { :events => ['member', 'public', 'push', 'repository'], :active => true }
+        )
+      rescue
+        logger.warn "Failed to create web-hook for course organization"
+      end
+
       # the course is now set up
       Setting['course_setup'] = true
       true
