@@ -13,7 +13,7 @@ class GithubWebhooksController < ApplicationController
   end
 
   def github_push(payload)
-    # TODO
+    HandlePushJob.perform_later payload
     head(:ok)
   end
 
