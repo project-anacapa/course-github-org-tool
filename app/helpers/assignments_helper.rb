@@ -8,8 +8,13 @@ module AssignmentsHelper
     assignments.any? {|a| repo_name =~ /^#{a}-([\w\d\-_]+)$/i }
   end
 
-  def assignment_repos(repos)
-    repos.select { |repo| is_assignment? repo.name }
+  # @param [array] repos
+  def assignment_repos(repos=nil)
+    if repos.nil?
+      assignment_repos(machine_octokit.org_repos(course_org_name))
+    else
+      repos.select { |repo| is_assignment? repo.name }
+    end
   end
 
   def student_repos(repos)
