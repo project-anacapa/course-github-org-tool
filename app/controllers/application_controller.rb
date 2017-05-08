@@ -86,14 +86,6 @@ class ApplicationController < ActionController::Base
       nil
     end
 
-    def anon_octokit
-      Strategies::GitStrategy.get_instance(nil)
-    end
-
-    def machine_octokit
-      Strategies::GitStrategy.get_instance(ENV['MACHINE_USER_KEY'])
-    end
-
     def session_octokit
       token = session['oauth_token'] || ''
       if token == ''
