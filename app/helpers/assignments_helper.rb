@@ -1,4 +1,5 @@
 module AssignmentsHelper
+  include OctokitHelper
 
   def is_assignment?(repo_name)
     (repo_name =~ /^assignment-([\w\d\-_]+)$/i) == 0
@@ -10,14 +11,20 @@ module AssignmentsHelper
 
   # @param [array] repos
   def assignment_repos(repos=nil)
-    if repos.nil?
-      assignment_repos(machine_octokit.org_repos(course_org_name))
-    else
-      repos.select { |repo| is_assignment? repo.name }
-    end
+    repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
+    repos.select { |repo| is_assignment? repo.name }
   end
 
-  def student_repos(repos)
+  def assignment_names(repos=nil)
+    repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
+    sub_index = 'assignment-'.length
+    # get the list of valid assignment names (omitting the starting 'assignment-')
+    assignment_repos(repos).map {|repo| repo.name[sub_index..-1]}
+  end
+
+  # @param [array] repos
+  def student_repos(repos=nil)
+    repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
     sub_index = 'assignment-'.length
     # get the list of valid assignment names (omitting the starting 'assignment-')
     assignments = assignment_repos(repos).map {|repo| repo.name[sub_index..-1]}
