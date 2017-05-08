@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :is_org_member
 
   include Strategies
+  include OctokitHelper
 
   private
 
