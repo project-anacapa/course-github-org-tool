@@ -84,7 +84,7 @@ class User < ApplicationRecord
         machine.add_org_hook(
             course,
             # ENV['APP_URL'] was set right before the call to this method (in the same request)
-            { :url => "#{ENV['APP_URL']}#{github_hook_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
+            { :url => "#{ENV['APP_URL']}#{github_webhooks_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
             { :events => ['member', 'public', 'push', 'repository'], :active => true }
         )
       rescue Exception => e
