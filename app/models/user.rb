@@ -78,18 +78,20 @@ class User < ApplicationRecord
           state: 'active',
       })
 
-      logger.warn "ADDING WEBHOOK"
-      begin
-        # set up web-hooks in organization
-        machine.add_org_hook(
-            course,
-            # ENV['APP_URL'] was set right before the call to this method (in the same request)
-            { :url => "#{ENV['APP_URL']}#{github_webhooks_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
-            { :events => ['member', 'public', 'push', 'repository'], :active => true }
-        )
-      rescue Exception => e
-        logger.warn "Failed to create web-hook for course organization"
-        logger.warn e
+      if FeaturesHelper.anacapa_repos?
+        logger.warn "ADDING WEBHOOK"
+        begin
+          # set up web-hooks in organization
+          machine.add_org_hook(
+              course,
+              # ENV['APP_URL'] was set right before the call to this method (in the same request)
+              { :url => "#{ENV['APP_URL']}#{github_webhooks_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
+              { :events => ['member', 'public', 'push', 'repository'], :active => true }
+          )
+        rescue Exception => e
+          logger.warn "Failed to create web-hook for course organization"
+          logger.warn e
+        end
       end
 
       # the course is now set up
