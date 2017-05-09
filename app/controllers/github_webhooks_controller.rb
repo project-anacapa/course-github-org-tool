@@ -1,6 +1,7 @@
 class GithubWebhooksController < ApplicationController
   include GithubWebhook::Processor
   skip_before_action :verify_authenticity_token, only: [:create]
+  before_action { require_feature! 'anacapa_repos' }
 
   def github_member(payload)
     # TODO
