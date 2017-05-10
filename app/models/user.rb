@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include RailsSettings::Extend
+  include Rails.application.routes.url_helpers
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -62,7 +63,7 @@ class User < ApplicationRecord
       # if the user is not an admin, then ignore them for now
       return false unless m[:role].eql? "admin"
 
-      # add current user as an instructor
+      # since the user is an admin, add current user as an instructor
       instructors = Setting['instructors'] || []
       instructors << self.username
       Setting.instructors = instructors
@@ -77,11 +78,27 @@ class User < ApplicationRecord
           state: 'active',
       })
 
+      if FeaturesHelper.anacapa_repos?
+        logger.warn "ADDING WEBHOOK"
+        begin
+          # set up web-hooks in organization
+          machine.add_org_hook(
+              course,
+              # ENV['APP_URL'] was set right before the call to this method (in the same request)
+              { :url => "#{ENV['APP_URL']}#{github_webhooks_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
+              { :events => ['member', 'public', 'push', 'repository'], :active => true }
+          )
+        rescue Exception => e
+          logger.warn "Failed to create web-hook for course organization"
+          logger.warn e
+        end
+      end
+
       # the course is now set up
       Setting['course_setup'] = true
       true
     rescue
-      # if the user is not even part of the organization or the organization doesn't exist, ignore them
+      # if the user is not part of the organization or the organization doesn't exist, ignore them
       false
     end
   end

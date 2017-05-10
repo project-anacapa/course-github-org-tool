@@ -28,6 +28,19 @@ module Strategies
       end
     end
 
+    def add_org_hook(org, config, options={})
+      raise "URL must be provided" unless config.key?(:url)
+      dest_url = config[:url]
+
+      existing_hook = @client.org_hooks(org).select { |hook| hook[:config][:url].eql?(dest_url) }
+      if existing_hook.empty?
+        @client.create_org_hook(org, config, options)
+      else
+        existing_hook = existing_hook[0]
+        @client.edit_org_hook(org, existing_hook[:id], config, options)
+      end
+    end
+
     def collaborator?(repo, collaborator, options = {})
       @client.collaborator?(repo, collaborator, options=options)
     end
@@ -39,7 +52,7 @@ module Strategies
         nil
       end
     end
-9
+
     def emails
       @client.emails
     end
