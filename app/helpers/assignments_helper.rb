@@ -15,9 +15,24 @@ module AssignmentsHelper
   end
 
   # @param [array] repos
-  def assignment_repos(repos=nil)
+  def assignment_repos(repos=nil, check_ready=false)
     repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
-    repos.select { |repo| is_assignment? repo.name }
+    assignments = repos.select { |repo| is_assignment? repo.name }
+
+    if ! check_ready
+      assignments
+    else
+      assignments.select do |repo|
+        begin
+          spec = machine_octokit.contents(repo.full_name, '.anacapa/assignment_spec.json')
+          JSON.parse(Base64.decode64(spec.content))['ready']
+        rescue Exception => e
+          logger.warn e
+          false
+        end
+      end
+    end
+
   end
 
   def assignment_names(repos=nil)

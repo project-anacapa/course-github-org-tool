@@ -24,6 +24,13 @@
       <% end %>
     </ul>
   <% else %>
+    <h3>Available Assignments</h3>
+    <ul>
+      <% assignment_repos(@repos, check_ready=true).each do |repo| %>
+        <li><%= link_to repo.name, assignment_path(repo.name) %></li>
+      <% end %>
+    </ul>
+
     <!-- If the user is not an instructor, show only repos available to them, and list of assignments -->
     <h3>Student Assignment Code Repos</h3>
     <ul>
