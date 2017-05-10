@@ -23,7 +23,7 @@ module AssignmentsHelper
   end
 
   # @param [array] repos
-  def student_repos(repos=nil)
+  def student_repos(repos=nil, student=nil)
     repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
     sub_index = 'assignment-'.length
     # get the list of valid assignment names (omitting the starting 'assignment-')
