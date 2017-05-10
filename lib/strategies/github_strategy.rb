@@ -41,6 +41,10 @@ module Strategies
       end
     end
 
+    def collaborators(repo, options = {})
+      @client.collaborators(repo, options)
+    end
+
     def collaborator?(repo, collaborator, options = {})
       @client.collaborator?(repo, collaborator, options=options)
     end

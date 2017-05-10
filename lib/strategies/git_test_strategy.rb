@@ -10,6 +10,10 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
+    def collaborators(repo, options = {})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def collaborator?(repo, collaborator, options = {})
       raise NotImplementedError, 'TODO: Implement'
     end

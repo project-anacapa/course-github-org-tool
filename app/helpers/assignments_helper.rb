@@ -9,6 +9,11 @@ module AssignmentsHelper
     assignments.any? {|a| repo_name =~ /^#{a}-([\w\d\-_]+)$/i }
   end
 
+  def get_students(repo)
+    usernames = machine_octokit.collaborators(repo).map { |r| r.login }
+    usernames.select { |user| repo.include? user }
+  end
+
   # @param [array] repos
   def assignment_repos(repos=nil)
     repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
