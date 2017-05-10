@@ -24,7 +24,8 @@ module AssignmentsHelper
 
   # @param [array] repos
   def student_repos(repos=nil, student=nil)
-    repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
+    course = ENV['COURSE_ORGANIZATION']
+    repos ||= machine_octokit.org_repos(course)
     sub_index = 'assignment-'.length
     # get the list of valid assignment names (omitting the starting 'assignment-')
     assignments = assignment_repos(repos).map {|repo| repo.name[sub_index..-1]}
@@ -35,7 +36,7 @@ module AssignmentsHelper
     if student.blank?
       ret
     else
-      ret.select { |repo| machine_octokit.collaborator? repo.name, student }
+      ret.select { |repo| machine_octokit.collaborator? "#{course}/#{repo.name}", student }
     end
   end
 
