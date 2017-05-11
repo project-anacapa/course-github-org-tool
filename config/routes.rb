@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   post '/students/import'
   resources :students
 
-  resources :assignments, only: [:index, :show]
+  resources :assignments, only: [:index, :show] do
+    member do
+      post 'checkout'
+    end
+  end
   resources :admin, only: [:index]
   resource :github_webhooks, only: :create, defaults: { formats: :json }
 
