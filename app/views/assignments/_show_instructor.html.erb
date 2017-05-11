@@ -2,4 +2,12 @@
 
 <% unless @spec.blank? %>
     <pre><%= @spec %></pre>
+
+    <p><strong>Starter Code Repo: </strong>
+      <% if @spec['starter_repo'].blank? %>
+        None
+      <% else %>
+        <%= link_to @spec['starter_repo'], @spec['starter_repo'] %>
+      <% end %>
+    </p>
 <% end %>
