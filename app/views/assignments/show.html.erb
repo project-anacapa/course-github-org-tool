@@ -1,9 +1,9 @@
 <div class="container">
   <h1>Course Assignment </h1>
 
-  <p><%= @assignment %></p>
-
-  <% unless @spec.blank? %>
-    <pre><%= Base64.decode64(@spec.content) %></pre>
+  <% if current_user.is_instructor? %>
+      <%= render 'assignments/show_instructor' %>
+  <% else %>
+      <%= render 'assignments/show_student' %>
   <% end %>
 </div>

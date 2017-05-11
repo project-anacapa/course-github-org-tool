@@ -2,41 +2,8 @@
   <h1>Course Assignments</h1>
 
   <% if current_user.is_instructor? %>
-    <!-- if the user is an instructor, show all repo information -->
-    <h3>Assignment Master Repos</h3>
-    <ul>
-    <% assignment_repos(@repos).each do |repo| %>
-      <li><%= link_to repo.name, assignment_path(repo.name) %></li>
-    <% end %>
-    </ul>
-
-    <h3>Student Code Repos</h3>
-    <ul>
-      <% student_repos(@repos).each do |repo| %>
-        <li><%= link_to repo.name, assignment_path(repo.name) %></li>
-      <% end %>
-    </ul>
-
-    <h3>All Repos</h3>
-    <ul>
-      <% @repos.each do |repo| %>
-        <li><%= link_to repo.name, assignment_path(repo.name) %></li>
-      <% end %>
-    </ul>
+      <%= render 'assignments/index_instructor' %>
   <% else %>
-    <h3>Available Assignments</h3>
-    <ul>
-      <% assignment_repos(@repos, check_ready=true).each do |repo| %>
-        <li><%= link_to repo.name, assignment_path(repo.name) %></li>
-      <% end %>
-    </ul>
-
-    <!-- If the user is not an instructor, show only repos available to them, and list of assignments -->
-    <h3>Student Assignment Code Repos</h3>
-    <ul>
-      <% student_repos(@repos, current_user.username).each do |repo| %>
-          <li><%= link_to repo.name, assignment_path(repo.name) %></li>
-      <% end %>
-    </ul>
+      <%= render 'assignments/index_student' %>
   <% end %>
 </div>

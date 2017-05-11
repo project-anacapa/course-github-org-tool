@@ -1,0 +1,21 @@
+<!-- if the user is an instructor, show all repo information -->
+<h3>Assignment Master Repos</h3>
+<ul>
+  <% assignment_repos(@repos).each do |repo| %>
+      <li><%= link_to repo.name, assignment_path(repo.name) %></li>
+  <% end %>
+</ul>
+
+<h3>Student Code Repos</h3>
+<ul>
+  <% student_repos(@repos).each do |repo| %>
+      <li><%= link_to repo.name, assignment_path(repo.name) %></li>
+  <% end %>
+</ul>
+
+<h3>All Repos</h3>
+<ul>
+  <% @repos.each do |repo| %>
+      <li><%= link_to repo.name, assignment_path(repo.name) %></li>
+  <% end %>
+</ul>
