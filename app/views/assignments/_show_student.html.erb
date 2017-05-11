@@ -1,12 +1,13 @@
-<p>The student view for new assignments is not available yet.</p>
-
 <%= form_tag checkout_assignment_path(@assignment.name) do -%>
     <%= hidden_field_tag 'student', current_user.username %>
     <%= submit_tag 'Start Assignment', :class => 'btn btn-success' %>
 <% end %>
 
-<p>You may have already started this assignment. Check below for the proper repository link. You can still click the
-   button above, though, in order to make sure the repository is set up properly.</p>
+<br>
+
+<p>Note: You may have already started this assignment!!.</p>
+<p>Check below to see if one exists. However, you can still click the button above in order to make sure the
+   repository is set up properly.</p>
 
 <ul>
   <% if student_repos(nil, current_user.username, @assignment.name).each do |repo| %>
