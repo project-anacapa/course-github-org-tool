@@ -17,7 +17,13 @@ class AssignmentsController < ApplicationController
     def set_assignment
       repo_name = "#{course_org_name}/#{params[:id]}"
       @assignment = machine_octokit.repo(repo_name)
-      @spec = machine_octokit.contents(repo_name, '.anacapa/assignment_spec.json')
+      begin
+        @spec = machine_octokit.contents(repo_name, '.anacapa/assignment_spec.json')
+        @spec = JSON.parse(Base64.decode64(@spec.content))
+      rescue Exception => e
+        @spec = {}
+        logger.warn e
+      end
     end
 
 end

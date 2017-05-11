@@ -1,5 +1,5 @@
 <p><%= @assignment %></p>
 
 <% unless @spec.blank? %>
-    <pre><%= Base64.decode64(@spec.content) %></pre>
+    <pre><%= @spec %></pre>
 <% end %>
