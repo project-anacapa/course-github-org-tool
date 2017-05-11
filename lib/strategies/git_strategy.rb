@@ -84,6 +84,10 @@ module Strategies
       raise NotImplementedError, 'Use a Specific Implementation'
     end
 
+    def set_private(repo)
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def update_org_membership(name, params={})
       raise NotImplementedError, 'Use a Specific Implementation'
     end

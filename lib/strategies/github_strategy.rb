@@ -97,6 +97,10 @@ module Strategies
       end
     end
 
+    def set_private(repo)
+      @client.set_private(repo)
+    end
+
     def update_org_membership(name, params={})
       @client.update_org_membership(name, params)
     end

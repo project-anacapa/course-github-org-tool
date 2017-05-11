@@ -61,6 +61,10 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
+    def set_private(repo)
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def update_org_membership(name, params={})
       raise NotImplementedError, 'TODO: Implement'
     end
