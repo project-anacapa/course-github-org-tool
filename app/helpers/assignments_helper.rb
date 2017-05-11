@@ -1,6 +1,17 @@
 module AssignmentsHelper
   include OctokitHelper
 
+  def get_assignment_spec(repo_name)
+    begin
+      spec = machine_octokit.contents(repo_name, :path => '.anacapa/assignment_spec.json')
+      spec = JSON.parse(Base64.decode64(spec.content))
+    rescue Exception => e
+      logger.warn e
+      spec = {}
+    end
+    spec
+  end
+
   def is_assignment?(repo_name)
     (repo_name =~ /^assignment-([\w\d\-_]+)$/i) == 0
   end
@@ -23,13 +34,7 @@ module AssignmentsHelper
       assignments
     else
       assignments.select do |repo|
-        begin
-          spec = machine_octokit.contents(repo.full_name, '.anacapa/assignment_spec.json')
-          JSON.parse(Base64.decode64(spec.content))['ready']
-        rescue Exception => e
-          logger.warn e
-          false
-        end
+        get_assignment_spec(repo.full_name)['ready']
       end
     end
 
