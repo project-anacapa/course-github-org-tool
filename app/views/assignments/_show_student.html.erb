@@ -10,7 +10,7 @@
 
 <ul>
   <% if student_repos(nil, current_user.username, @assignment.name).each do |repo| %>
-      <li><%= link_to repo.name, assignment_path(repo.name) %></li>
+      <li><%= link_to repo.name, repo['html_url'] %></li>
   <% end.empty? %>
     <li>No repositories to display.</li>
   <% end %>
