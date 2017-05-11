@@ -13,9 +13,9 @@
   <% end %>
 </ul>
 
-<h3>All Repos</h3>
+<h3>All Other Repos</h3>
 <ul>
-  <% @repos.each do |repo| %>
+  <% unrelated_repos(@repos).each do |repo| %>
       <li><%= link_to repo.name, assignment_path(repo.name) %></li>
   <% end %>
 </ul>

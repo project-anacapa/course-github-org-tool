@@ -11,3 +11,13 @@
       <% end %>
     </p>
 <% end %>
+
+<p>Below is a list of student repositories corresponding to this assignment:</p>
+
+<ul>
+  <% if student_repos(nil, nil, @assignment.name).each do |repo| %>
+      <li><%= link_to repo.name, repo['html_url'] %></li>
+  <% end.empty? %>
+      <li>No students have started this assignment.</li>
+  <% end %>
+</ul>

@@ -17,7 +17,14 @@ module AssignmentsHelper
   end
 
   def is_student_repo?(assignments, repo_name)
-    assignments.any? {|a| repo_name =~ /^#{a}-([\w\d\-_]+)$/i }
+    assignments.any? do |a|
+      if a.is_a? String
+        name = a.split("assignment-").last
+      else # a repo object
+        name = a.name.split("assignment-").last
+      end
+      repo_name =~ /^#{name}-([\w\d\-_]+)$/i
+    end
   end
 
   def get_students(repo)
@@ -58,16 +65,26 @@ module AssignmentsHelper
     # get only repos with names that correspond to valid and known assignments
     ret = repos.select { |repo| is_student_repo? assignments, repo.name }
 
-    if student.blank?
-      ret
-    else
+    unless student.blank?
       ret = ret.select { |repo| machine_octokit.collaborator? "#{course}/#{repo.name}", student }
-      if assignment.blank?
-        ret
-      else
-        ret.select { |repo| repo.name.include? assignment.split("assignment-").last }
-      end
     end
+
+    unless assignment.blank?
+      assignment_name = assignment.split("assignment-").last
+      ret = ret.select { |repo| repo.name.include? assignment_name }
+    end
+
+    ret
+  end
+
+  def unrelated_repos(repos=nil)
+    repos ||= machine_octokit.org_repos(ENV['COURSE_ORGANIZATION'])
+
+    assignments = assignment_repos(repos)
+    repos.select { |repo|
+      ! is_assignment?(repo.name) && \
+      ! is_student_repo?(assignments, repo.name)
+    }
   end
 
 end
