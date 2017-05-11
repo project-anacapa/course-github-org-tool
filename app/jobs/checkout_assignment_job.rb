@@ -19,8 +19,9 @@ class CheckoutAssignmentJob < ApplicationJob
     starter_repo = assignment_spec['starter_repo']
 
     new_repo = machine_octokit.repo(new_repo_fullname)
+    existed = ! new_repo.blank?
 
-    if new_repo.blank?
+    if ! existed
       logger.warn "Creating assignment repo #{new_repo_name}"
       new_repo = machine_octokit.create_repository(new_repo_name, {
           :organization => course_org,
@@ -45,6 +46,8 @@ class CheckoutAssignmentJob < ApplicationJob
 
     if starter_repo.blank?
       logger.warn "No starter code repo to copy..."
+    elsif existed
+      logger.warn "Repository already existed; cowardly refusing to copy contents from starter code repo..."
     else
       starter_repo = machine_octokit.repo(starter_repo)
       logger.warn "Copying contents from #{starter_repo.name} into #{new_repo_name}"
