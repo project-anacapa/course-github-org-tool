@@ -6,6 +6,10 @@ module Strategies
       @token = token
     end
 
+    def add_collaborator(repo, collaborator, options = {})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def add_org_hook(org, config, options={})
       raise NotImplementedError, 'TODO: Implement'
     end
@@ -18,7 +22,15 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
-    def contents(repo, path, ref="master")
+    def contents(repo, options={})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
+    def create_contents(repo, path, message, content=nil, options={})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
+    def create_repository(name, options={})
       raise NotImplementedError, 'TODO: Implement'
     end
 

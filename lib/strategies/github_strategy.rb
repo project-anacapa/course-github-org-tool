@@ -28,6 +28,10 @@ module Strategies
       end
     end
 
+    def add_collaborator(repo, collaborator, options = {})
+      @client.add_collaborator(repo, collaborator, options)
+    end
+
     def add_org_hook(org, config, options={})
       raise "URL must be provided" unless config.key?(:url)
       dest_url = config[:url]
@@ -49,12 +53,16 @@ module Strategies
       @client.collaborator?(repo, collaborator, options=options)
     end
 
-    def contents(repo, path, ref="master")
-      begin
-        @client.contents(repo, :path => path, :ref => ref)
-      rescue
-        nil
-      end
+    def contents(repo, options={})
+      @client.contents(repo, options)
+    end
+
+    def create_contents(repo, path, message, content=nil, options={})
+      @client.create_contents(repo, path, message, content, options)
+    end
+
+    def create_repository(name, options={})
+      @client.create_repository(name, options)
     end
 
     def emails
