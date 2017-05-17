@@ -1,3 +1,33 @@
-// Place all the styles related to the Students controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// namespace controller CSS
+.students-controller {
+
+       #upload-modal select {
+               margin-bottom: 15px;
+               width: 95%;
+       }
+
+       @media (min-width: 992px) {
+               // bootstrap override
+               .modal-lg {
+                   width: 90%;
+               }
+       }
+
+       #file {
+               width: 280px;
+               float: left;
+       }
+
+       .hidden {
+               display: none;
+       }
+
+       tr.disabled {
+               opacity: 0.5;
+               td {
+                       text-decoration: line-through;
+               }
+       }
+
+}

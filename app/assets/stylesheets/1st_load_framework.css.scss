@@ -2,6 +2,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html, body {
+ min-height: 100%;
+ background-color: #eee;
+}
+
+.alert {
+  margin-top: 15px;
+}
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
