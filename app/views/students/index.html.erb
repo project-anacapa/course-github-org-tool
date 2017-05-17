@@ -1,18 +1,28 @@
+
 <div class="container">
   <h1>Course Roster</h1>
 
-  <p>Upload a new roster:</p>
-  <%= form_tag students_import_path, multipart: true, class: 'form-inline', style: 'display:inline-block;float' do %>
-    <%= file_field_tag :file, class: 'form-control' %>
-    <%= submit_tag 'Upload', class: 'btn btn-primary form-control' %>
-  <% end %>
-  <%= link_to 'Download Roster as CSV', students_path(:format => 'csv'),
-              method: :get, class: 'btn btn-success', style: 'display:inline-block' %>
+  <div style="margin-bottom: 20px" >
+
+    <p>Upload a new roster:</p>
+
+    <%= form_tag students_import_path, multipart: true, class: "form-inline", style: "display:inline-block;", id: "roster-upload-form" do %>
+
+      <%= file_field_tag :file, class: "form-control" %>
+
+      <input type="text" style="display: none;" id="csv-header-map-hidden-field" name="csv_header_map" >
+      <input type="checkbox" style="display: none;" checked="false" id="csv-header-toggle-hidden-field" name="csv_header_toggle" >
+
+    <% end %>
+
+    <%= link_to "Download Roster as CSV", students_path(:format => "csv"), method: :get, class: "btn btn-success", style: "display:inline-block; float: right;" %>
+
+  </div>
 
   <table class="table">
     <thead>
       <tr>
-        <th>Perm</th>
+        <th>Student IDn</th>
         <th>First name</th>
         <th>Last name</th>
         <th>Email</th>
@@ -22,7 +32,7 @@
       </tr>
     </thead>
 
-    <tbody id="students-list">
+    <tbody>
       <% @students.each do |student| %>
         <tr>
           <td><%= student.perm %></td>
@@ -46,5 +56,38 @@
 
   <br>
 
-  <%= link_to 'New Student', new_student_path %>
+  <%= link_to 'New Student', new_student_path, class: "btn btn-success" %>
+
+</div>
+
+
+  <!-- upload modal -->
+  <!-- prep the data on the client side first -->
+  <div class="modal fade " id="upload-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Specify Column Headers</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            <input type="checkbox" id="first-row-is-header" onchange="headerToggle(this)"> First row is a header
+          </p>
+          <table class="table">
+            <thead>
+              <!-- dyn populated by JS file for this controller -->
+            </thead>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <h4 id="csv-upload-error" class="hidden" style="width: 100%;text-align: center;float: left;margin-bottom: -20px;"><span class="label label-lg label-danger">ERROR: Please select { {First Name, Last Name } | Full Name, Student ID, Email} </span></h4>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="uploadSubmit();">Upload</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
 </div>
