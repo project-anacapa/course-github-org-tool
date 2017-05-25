@@ -29,6 +29,8 @@ gem 'pg'
 gem 'octokit', '~> 4.0'
 gem 'github_webhook', '~> 1.0.4'
 
+gem 'AnacapaJenkinsLib', :git => 'https://github.com/project-anacapa/AnacapaJenkinsLib'
+
 gem 'rails-settings-cached'
 gem 'roo'
 gem 'font-awesome-rails'
