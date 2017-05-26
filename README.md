@@ -22,13 +22,8 @@ To deploy this app on Heroku, you will need
 1. A Heroku account.  The "free tier" is sufficient.
 
 1. A github organization for your course, to which the instructor has owner access.  We will refer to that organization by the example name `UCSB-CS99-S15` in these instructions.     
-    * You will create an OMNIAUTH_PROVIDER_KEY and an OMNIAUTH_PROVIDER_SECRET that is associated with this github organization at a later step.    
-    * Note that students will sign in to the application using their github id.  When they do, the name of your organization
-      will appear.
-
-1. Optionally, a name for your application.  If you don't choose one, heroku will choose one for you such as `mashed-potatoes-85352`.  You may want to think of a better one in advance, such as `ucsb-cs99-s15-signup`.  But that's up to you.
-
-1. Values for four environment variables that authenticate the application to github in various ways.  We'll explain how to set up each of these in just a moment.  Each of these takes only a minute or two to obtain.   Here's a list of them for reference&mdash;we'll explain how to get each of them below.
+    
+1. Values for six environment variables that authenticate the application to github in various ways.  We'll explain how to set up each of these in just a moment.  Each of these takes only a minute or two to obtain.   Here's a list of them for reference&mdash;we'll explain how to get each of them below.
     * GIT_PROVIDER_URL
     * OMNIAUTH_STRATEGY
     * OMNIAUTH_PROVIDER_KEY
@@ -36,7 +31,9 @@ To deploy this app on Heroku, you will need
     * MACHINE_USER_NAME
     * MACHINE_USER_KEY
 
-Once you have those three things ready, you can deploy to Heroku with a few mouse clicks.
+1. Optionally, a name for your application.  If you don't choose one, heroku will choose one for you such as `mashed-potatoes-85352`.  You may want to think of a better one in advance, such as `ucsb-cs99-s15-signup` or `ucsd-cse-spis-2017-signup`.  But that's up to you.
+
+Once you have those four things ready, you can deploy to Heroku with a few mouse clicks.
 
 # Steps to take
 
