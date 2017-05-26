@@ -14,6 +14,14 @@ This tool is a first attempt at a MVP for allowing students to self-enroll in a 
 
 It also provides an interface for instructors to view which of their students have or have not enrolled in the GitHub Organization for the course, provided that the students have logged in to the application OR the application knows about the students' GitHub usernames.
 
+Finally, this tool is the starting point for future planned features including:
+1. A means for instructors to manage student assignments
+    * Instructors will be able to set up starter code, and students will be able to automatically create repos with the correct naming convention for single work, pair, or team work.
+    * This is similar to the functionality of [Github Classroom], but has the added benefit that (a) student's submissions are tied back to their official enrollment in the class by school email and, optionally,student id and (b) only students officially enrolled in the class can get access to self-signup into the organization.
+    * There will be a feature that allows instructors/TAs to gather all student submissions into a single directory structure for off line grading, or other processing.
+2. A means for instructors to give feedback on student assignments.
+3. Auto grader features that replace the submit.cs autograder deployed at UCSB.
+
 Deploying on Heroku
 ===================
 
