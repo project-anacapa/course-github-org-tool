@@ -34,7 +34,7 @@ module AssignmentsHelper
       else # a repo object
         name = a.name.split("assignment-").last
       end
-      if repo_name ~= /^#{name}-([\w\d\-_]+)$/i then
+      if repo_name =~ /^#{name}-([\w\d\-_]+)$/i then
         return a
       end
     end
