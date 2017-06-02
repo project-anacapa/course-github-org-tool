@@ -96,9 +96,10 @@ You now need to create these two values:
 
 * MACHINE_USER_KEY.  This is a "personal access token" for the machine user.  While logged in to github "as the machine user", access this
     item on the settings menu: <https://github.com/settings/tokens>. Create a personal access token with the
-    correct scope `(user,repo,delete_repo,admin:org)`.  Record this value, but be sure it is in a SECURE location (since access to this
-    token confers the power to take any action in github that the machine user is authorized to take.)  In particular,
-    do not store it in any github repo, or anywhere that it could potentially leak.
+    correct scope `(user,repo,delete_repo,admin:org,admin:org_hook)`.  Record this value, but be sure it is in a SECURE location (since access to this
+    token confers the power to take any action in github that the machine user is authorized to take.) In particular,
+    do not store it in any github repo, or anywhere that it could potentially leak. Note that the `admin:org_hook` scope may only be available
+    for GitHub Enterprise organizations.
 
 Keep this window open so that you have these values available for step 3, deploying to Heroku.
 
