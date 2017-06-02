@@ -34,12 +34,12 @@ module AssignmentsHelper
       else # a repo object
         name = a.name.split("assignment-").last
       end
-      if repo_name =~ /^#{name}-([\w\d\-_]+)$/i then
-        return a
+      if repo_name =~ /^#{name}-([\w\d\-_]+)$/i
+        return a, repo_name.split("#{name}-").last
       end
     end
 
-    return nil
+    nil
   end
 
   def get_students(repo)
