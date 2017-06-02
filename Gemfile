@@ -29,7 +29,7 @@ gem 'pg'
 gem 'octokit', '~> 4.0'
 gem 'github_webhook', '~> 1.0.4'
 
-gem 'AnacapaJenkinsLib', :git => 'https://github.com/project-anacapa/anacapa-jenkins-api'
+gem 'anacapa_jenkins_api', :git => 'https://github.com/project-anacapa/anacapa-jenkins-api'
 
 gem 'rails-settings-cached'
 gem 'roo'
