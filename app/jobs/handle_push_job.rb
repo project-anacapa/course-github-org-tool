@@ -1,4 +1,4 @@
-AnacapaJenkinsLib.configure(YAML.load_file("./jenkins.yml"))
+AnacapaJenkinsAPI.configure(YAML.load_file("./jenkins.yml"))
 
 class HandlePushJob < ApplicationJob
   queue_as :default
@@ -9,44 +9,46 @@ class HandlePushJob < ApplicationJob
 
     repo = push['repository']['name']
     url = push['repository']['url']
-    commit = push['head_commit']['id']
+    commit = push['after']
 
     logger.warn "Received push event webhook for repo: #{repo} (commit #{commit})"
     logger.warn "Repo url: #{url}"
     logger.warn "is assignment repo? #{is_assignment? repo}"
     logger.warn "is student repo? #{is_student_repo? assign_repos, repo}"
-    logger.warn JSON.pretty_generate(push)
+    # logger.warn JSON.pretty_generate(push)
 
-    if is_assignment? repo then
-      assignment = AnacapaJenkinsLib::Assignment.new(
-        :gitProviderDomain => ENV['GIT_PROVIDER_URL'],
-        :courseOrg => ENV['COURSE_ORGANIZATION'],
-        :credentialsId => ENV['JENKINS_MACHINE_USER_CREDENTIALS_ID'],
-        :labName => repo[('assignment-'.length) .. -1]
+    if is_assignment? repo
+      assignment = AnacapaJenkinsAPI::Assignment.new(
+        :callback_url => '',
+        :git_provider_domain => ENV['GIT_PROVIDER_URL'],
+        :course_org => ENV['COURSE_ORGANIZATION'],
+        :credentials_id => ENV['JENKINS_MACHINE_USER_CREDENTIALS_ID'],
+        :lab_name => repo[('assignment-'.length) .. -1]
       )
 
       begin
-        assignment.checkJenkinsState
-        build = assignment.jobInstructor.rebuild
+        assignment.check_jenkins_state
+        build = assignment.job_instructor.rebuild
       rescue Exception => e
         logger.error("Error processing webhook: #{e.message}")
       end
 
-    elsif is_student_repo? assign_repos, repo then
-      assign_repo = student_repo_get_assignment(assign_repos, repo)
+    elsif is_student_repo? assign_repos, repo
+      assign_repo, students = student_repo_get_assignment(assign_repos, repo)
 
-      assignment = AnacapaJenkinsLib::Assignment.new(
-        :gitProviderDomain => ENV['GIT_PROVIDER_URL'],
-        :courseOrg => ENV['COURSE_ORGANIZATION'],
-        :credentialsId => ENV['JENKINS_MACHINE_USER_CREDENTIALS_ID'],
-        :labName => assign_repo.name[('assignment-'.length) .. -1]
+      assignment = AnacapaJenkinsAPI::Assignment.new(
+        :callback_url => '',
+        :git_provider_domain => ENV['GIT_PROVIDER_URL'],
+        :course_org => ENV['COURSE_ORGANIZATION'],
+        :credentials_id => ENV['JENKINS_MACHINE_USER_CREDENTIALS_ID'],
+        :lab_name => assign_repo.name[('assignment-'.length) .. -1]
       )
 
       begin
-        assignment.checkJenkinsState
-        build = assignment.jobGrader.rebuild({
-          student_repo: assign_repo,
-          commit: push['head_commit']['id']
+        assignment.check_jenkins_state
+        build = assignment.job_grader.rebuild({
+          github_user: students,
+          commit: push['after']
         })
       rescue Exception => e
         logger.error("Error processing webhook: #{e.message}")
