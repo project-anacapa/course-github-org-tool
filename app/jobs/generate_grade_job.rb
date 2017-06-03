@@ -8,14 +8,15 @@ class GenerateGradeJob < ApplicationJob
     match = /^AnacapaGrader (?<domain>\S+) (?<org>\S+) (?<type>grader|assignment)-(?<lab>\S+)$/i =~ name
 
     logger.warn(payload)
-    logger.warn("Domain: #{domain}")
-    logger.warn("Org: #{org}")
-    logger.warn("Type: #{type}")
-    logger.warn("Lab: #{lab}")
 
     if match != 0 # or domain != ENV['GIT_PROVIDER_URL'] or org != ENV['COURSE_ORGANIZATION']
       return
     end
+
+    logger.warn("Domain: #{domain}")
+    logger.warn("Org: #{org}")
+    logger.warn("Type: #{type}")
+    logger.warn("Lab: #{lab}")
 
     if type == 'grader'
       student = payload['build']['parameters']['github_user']
