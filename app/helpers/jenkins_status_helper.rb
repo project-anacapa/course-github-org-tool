@@ -1,0 +1,2 @@
+module JenkinsStatusHelper
+end

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
   resources :admin, only: [:index]
   resource :github_webhooks, only: :create, defaults: { formats: :json }
+  post '/jenkins' => 'jenkins_status#index', :as => :jenkins_status
 
   get '/settings' => 'users#settings'
   post '/settings' => 'users#update_settings', :as => :update_settings

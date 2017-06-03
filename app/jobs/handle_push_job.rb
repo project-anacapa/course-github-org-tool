@@ -4,7 +4,7 @@ class HandlePushJob < ApplicationJob
   queue_as :default
   include AssignmentsHelper
 
-  def perform(push)
+  def perform(push, jenkins_callback_url)
     assign_repos = assignment_repos
 
     repo = push['repository']['name']
@@ -19,11 +19,12 @@ class HandlePushJob < ApplicationJob
 
     if is_assignment? repo
       assignment = AnacapaJenkinsAPI::Assignment.new(
-        :callback_url => '',
+        :callback_url => jenkins_callback_url,
+        # :callback_url => 'http://localhost:3000/jenkins',
         :git_provider_domain => ENV['GIT_PROVIDER_URL'],
         :course_org => ENV['COURSE_ORGANIZATION'],
         :credentials_id => ENV['JENKINS_MACHINE_USER_CREDENTIALS_ID'],
-        :lab_name => repo[('assignment-'.length) .. -1]
+        :lab_name => repo.split('assignment-').last
       )
 
       begin
@@ -37,11 +38,12 @@ class HandlePushJob < ApplicationJob
       assign_repo, students = student_repo_get_assignment(assign_repos, repo)
 
       assignment = AnacapaJenkinsAPI::Assignment.new(
-        :callback_url => '',
+        :callback_url => jenkins_callback_url,
+        # :callback_url => 'http://localhost:3000/jenkins',
         :git_provider_domain => ENV['GIT_PROVIDER_URL'],
         :course_org => ENV['COURSE_ORGANIZATION'],
         :credentials_id => ENV['JENKINS_MACHINE_USER_CREDENTIALS_ID'],
-        :lab_name => assign_repo.name[('assignment-'.length) .. -1]
+        :lab_name => assign_repo.name.split('assignment-').last
       )
 
       begin
