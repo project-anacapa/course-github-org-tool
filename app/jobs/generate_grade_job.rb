@@ -172,7 +172,9 @@ Expected output is on the left, your output is on the right.
       diff_name = "#{g['test_group']}_#{g['test_name']}_output".gsub(/\W+/, '-')
       diff_name = "#{diff_name}.diff"
       readme << "\n"
-      if artifacts.key?(diff_name)
+      if failed['hide'] || false
+        readme << "Output obfuscated by instructor.\n"
+      elsif artifacts.key?(diff_name)
         readme << AnacapaJenkinsAPI.make_request(artifacts[diff_name]['archive']).body
       else
         readme << "No output available to display.\n"
