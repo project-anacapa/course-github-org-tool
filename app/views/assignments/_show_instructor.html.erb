@@ -1,5 +1,11 @@
 <p><%= @assignment %></p>
 
+<%= form_tag checkout_assignment_path(@assignment.name) do -%>
+    <%= hidden_field_tag 'student', current_user.username %>
+    <%= submit_tag 'Start Assignment', :class => 'btn btn-success' %>
+<% end %>
+<br>
+
 <% unless @spec.blank? %>
     <pre><%= @spec %></pre>
 
