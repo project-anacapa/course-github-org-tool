@@ -112,6 +112,8 @@ class GenerateGradeJob < ApplicationJob
 
 For instructor-provided feedback, visit [the Feedback.md file](FEEDBACK.md).
 
+## <span style="color:green">Passed Tests</span>
+
 | Test Name | Command | Value |
 | --------- | ------- | ----- |
     }.strip
@@ -119,9 +121,26 @@ For instructor-provided feedback, visit [the Feedback.md file](FEEDBACK.md).
     total, max = 0, 0
     readme << "\n"
     grade['results'].each do |g|
-      total += g['score']
-      max += g['max_score']
-      readme << "| #{g['test_group']} | #{g['test_name']} | #{g['max_score']} |\n"
+      if g['score'] > 0
+        total += g['score']
+        max += g['max_score']
+        readme << "| #{g['test_group']} | <span style=\"color:green\">#{g['test_name']}</span> | #{g['max_score']} |\n"
+      end
+    end
+
+    readme << %{
+## <span style="color:green">Passed Tests</span>
+
+| Test Name | Command | Value |
+| --------- | ------- | ----- |
+    }.strip
+
+    readme << "\n"
+    grade['results'].each do |g|
+      if g['score'] == 0
+        max += g['max_score']
+        readme << "| #{g['test_group']} | <span style=\"color:red\">#{g['test_name']}</span> | #{g['max_score']} |\n"
+      end
     end
 
     readme << "\n"
