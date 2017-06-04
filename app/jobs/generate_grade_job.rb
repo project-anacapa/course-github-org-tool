@@ -23,7 +23,7 @@ class GenerateGradeJob < ApplicationJob
 
       if build['artifacts'].key?('grade.json')
         grade = AnacapaJenkinsAPI.make_request(build['artifacts']['grade.json']['archive']).body
-        self.update_feedback(grade, org, lab, student)
+        self.update_feedback(grade, org, lab, student, build['artifacts'])
       else
         logger.warn('No grade available!')
       end
@@ -34,7 +34,7 @@ class GenerateGradeJob < ApplicationJob
     end
   end
 
-  def update_feedback(grade, org, lab, student)
+  def update_feedback(grade, org, lab, student, artifacts)
     logger.warn(grade)
     student_repo = "#{org}/#{lab}-#{student}"
     students = get_students(student_repo)
@@ -83,7 +83,7 @@ class GenerateGradeJob < ApplicationJob
                 "# Feedback on #{lab} for #{s}"
       end
 
-      grade_readme = create_grade_readme(JSON.parse(grade))
+      grade_readme = create_grade_readme(JSON.parse(grade), artifacts)
       begin
         logger.warn("Creating grade file for lab #{grade_file}")
         machine_octokit.create_contents \
@@ -106,7 +106,7 @@ class GenerateGradeJob < ApplicationJob
     end
   end
 
-  def create_grade_readme(grade)
+  def create_grade_readme(grade, artifacts)
     green_box = "![#7fcb5c](https://placehold.it/15/7fcb5c/000000?text=+)"
     red_box = "![#c94114](https://placehold.it/15/c94114/000000?text=+)"
 
@@ -164,8 +164,20 @@ Total Score: `#{total} / #{max}`
       readme << %{
 ### #{g['test_group']}:#{g['test_name']} -- Your program's output did not match the expected.
 
-In the future, this would be the diff for this failed test case.
+Expected output is on the left, your output is on the right.
+
+```diff
       }.strip
+
+      diff_name = "#{g['test_group']}_#{g['test_name']}_output".gsub(/\W+/, '-')
+      diff_name = "#{diff_name}.diff"
+      readme << "\n"
+      if artifacts.key?(diff_name)
+        readme << AnacapaJenkinsAPI.make_request(artifacts[diff_name]['archive']).body
+      else
+        readme << "No output available to display.\n"
+      end
+      readme << "\n```\n"
     end
 
     readme
