@@ -48,21 +48,8 @@ class GenerateGradeJob < ApplicationJob
 
     students.each do |s|
       feedback_repo_name = "FEEDBACK-#{s}"
-      feedback_repo_fullname = "#{org}/#{feedback_repo_name}"
 
-      feedback_repo = machine_octokit.repo(feedback_repo_fullname)
-      existed = ! feedback_repo.blank?
-
-      if ! existed
-        logger.warn "Creating assignment repo #{feedback_repo_fullname}"
-        feedback_repo = machine_octokit.create_repository(feedback_repo_name, {
-            :organization => org,
-            :private => true, # change this to true when we know that private repos are feasible.
-        })
-      else
-        logger.warn "Assignment repo #{feedback_repo_fullname} already exists! Ensuring proper settings"
-        machine_octokit.set_private(feedback_repo_fullname)
-      end
+      feedback_repo = ensure_repo(machine_octokit, org, feedback_repo_name, true)
 
       logger.warn "Adding #{s} as a collaborator"
       begin
