@@ -101,6 +101,10 @@ module Strategies
       @client.set_private(repo)
     end
 
+    def update_contents(repo, path, message, sha, content=nil, options={})
+      @client.update_contents(repo, path, message, sha, content, options)
+    end
+
     def update_org_membership(name, params={})
       @client.update_org_membership(name, params)
     end

@@ -71,6 +71,10 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
+    def update_contents(repo, path, message, sha, content=nil, options={})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def update_org_membership(name, params={})
       'ok'
     end

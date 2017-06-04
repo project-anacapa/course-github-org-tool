@@ -88,6 +88,10 @@ module Strategies
       raise NotImplementedError, 'Use a Specific Implementation'
     end
 
+    def update_contents(repo, path, message, sha, content=nil, options={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def update_org_membership(name, params={})
       raise NotImplementedError, 'Use a Specific Implementation'
     end
