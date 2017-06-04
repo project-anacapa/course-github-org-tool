@@ -21,7 +21,7 @@ module OctokitHelper
       })
     elsif private
       logger.warn "Repo #{full_name} already exists! Ensuring proper settings"
-      client.set_private(repo)
+      client.set_private(repo.full_name)
     end
 
     repo
