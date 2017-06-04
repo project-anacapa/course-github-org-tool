@@ -6,4 +6,3 @@ script:
 before_script:
 - psql -c 'create user "course-github-org-tool" with createdb;' -U postgres
 - RAILS_ENV=test bundle exec rails db:setup --trace
-- cp jenkins.yml.example jenkins.yml
