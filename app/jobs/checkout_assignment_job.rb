@@ -25,12 +25,12 @@ class CheckoutAssignmentJob < ApplicationJob
       logger.warn "Creating assignment repo #{new_repo_name}"
       new_repo = machine_octokit.create_repository(new_repo_name, {
           :organization => course_org,
-          :private => false, # change this to true when we know that private repos are feasible.
+          :private => true, # change this to true when we know that private repos are feasible.
           :auto_init => starter_repo.blank?
       })
     else
       logger.warn "Assignment repo #{new_repo_name} already exists! Ensuring proper settings"
-      # machine_octokit.set_private(new_repo_fullname)
+      machine_octokit.set_private(new_repo_fullname)
     end
 
     students.each do |username|

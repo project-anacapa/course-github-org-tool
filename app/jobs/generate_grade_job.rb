@@ -53,11 +53,11 @@ class GenerateGradeJob < ApplicationJob
         logger.warn "Creating assignment repo #{feedback_repo_fullname}"
         feedback_repo = machine_octokit.create_repository(feedback_repo_name, {
             :organization => org,
-            :private => false, # change this to true when we know that private repos are feasible.
+            :private => true, # change this to true when we know that private repos are feasible.
         })
       else
         logger.warn "Assignment repo #{feedback_repo_fullname} already exists! Ensuring proper settings"
-        # machine_octokit.set_private(new_repo_fullname)
+        machine_octokit.set_private(feedback_repo_fullname)
       end
 
       logger.warn "Adding #{s} as a collaborator"
