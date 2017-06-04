@@ -108,9 +108,9 @@ class GenerateGradeJob < ApplicationJob
 
     total, max = 0, 0
     grade['results'].each do |g|
-      total += g['score']
-      max += g['max_score']
-      if g['score'] == 0
+      total += number_or_zero(g['score'])
+      max += number_or_zero(g['max_score'])
+      if number_or_zero(g['score']) == 0
         failed << g
       else
         passed << g
@@ -162,10 +162,10 @@ Expected output is on the left, your output is on the right.
 ```diff
       }.strip
 
-      diff_name = "#{g['test_group']}_#{g['test_name']}_output".gsub(/\W+/, '-')
+      diff_name = "#{g['test_group']}_#{g['test_name']}_output".gsub(/\W+/, '_')
       diff_name = "#{diff_name}.diff"
       readme << "\n"
-      if failed['hide'] || false
+      if g['hide'] || false
         readme << "Output obfuscated by instructor.\n"
       elsif artifacts.key?(diff_name)
         readme << AnacapaJenkinsAPI.make_request(artifacts[diff_name]['archive']).body
@@ -186,8 +186,8 @@ Expected output is on the left, your output is on the right.
 
     total, max = 0, 0
     grade['results'].each do |g|
-      total += g['score']
-      max += g['max_score']
+      total += number_or_zero(g['score'])
+      max += number_or_zero(g['max_score'])
     end
 
     begin
@@ -230,7 +230,7 @@ Expected output is on the left, your output is on the right.
     new_grade['id'] = Student.where(username: student).first
     new_grade['username'] = student
     new_grade['grade_latest'] = total
-    if number_or_zero(new_grade['grade_highest']) < total
+    if number_or_zero(new_grade['grade_highest']) <= total
       new_grade['grade_highest'] = total
     end
     new_grade['grade_max'] = max
