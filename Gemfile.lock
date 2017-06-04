@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/project-anacapa/anacapa-jenkins-api
-  revision: 25225dba65f3c58524b103338cb7e4a6bf0982db
+  revision: 4226711b9ff7f87aecc2975c3a615372422b255f
   specs:
-    anacapa_jenkins_api (1.4.2)
+    anacapa_jenkins_api (1.4.3)
       jenkins_api_client
       rest-client
 

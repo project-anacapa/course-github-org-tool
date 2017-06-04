@@ -1,8 +1,8 @@
-AnacapaJenkinsAPI.configure(
+AnacapaJenkinsAPI.configure({
     :server_url => ENV['JENKINS_HOST'],
     :username => ENV['JENKINS_USER'],
     :password => ENV['JENKINS_USER_KEY']
-)
+})
 
 class HandlePushJob < ApplicationJob
   queue_as :default
