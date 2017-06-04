@@ -107,52 +107,66 @@ class GenerateGradeJob < ApplicationJob
   end
 
   def create_grade_readme(grade)
-    readme = %{
-# Latest Grade
+    green_box = "![#7fcb5c](https://placehold.it/15/7fcb5c/000000?text=+)"
+    red_box = "![#c94114](https://placehold.it/15/c94114/000000?text=+)"
 
-For instructor-provided feedback, visit [the Feedback.md file](FEEDBACK.md).
-
-## <span style="color:green">Passed Tests</span>
-
-| Test Name | Command | Value |
-| --------- | ------- | ----- |
-    }.strip
+    passed = []
+    failed = []
 
     total, max = 0, 0
-    readme << "\n"
     grade['results'].each do |g|
-      if g['score'] > 0
-        total += g['score']
-        max += g['max_score']
-        readme << "| #{g['test_group']} | <span style=\"color:green\">#{g['test_name']}</span> | #{g['max_score']} |\n"
-      end
-    end
-
-    readme << %{
-## <span style="color:green">Passed Tests</span>
-
-| Test Name | Command | Value |
-| --------- | ------- | ----- |
-    }.strip
-
-    readme << "\n"
-    grade['results'].each do |g|
+      total += g['score']
+      max += g['max_score']
       if g['score'] == 0
-        max += g['max_score']
-        readme << "| #{g['test_group']} | <span style=\"color:red\">#{g['test_name']}</span> | #{g['max_score']} |\n"
+        failed << g
+      else
+        passed << g
       end
+    end
+
+    readme = %{
+# Latest Grade for Repository: `#{grade['assignment_name']}`
+
+Repository: `#{grade['repo']}`
+
+For instructor-provided feedback, visit [the FEEDBACK.md file](FEEDBACK.md).
+
+Total Score: `#{total} / #{max}`
+
+*__Note__*: this score is tentative.
+
+*__Instructor Note__*: Do not make edits to this file; any changes will be overwritten on the next grade generation.
+
+## Passed Tests
+
+| Test Group | Test Name | Value |
+| ---------- | --------- | ----- |
+    }.strip
+
+    passed.each do |g|
+      readme << "\n| #{g['test_group']} | #{green_box} #{g['test_name']} | #{g['max_score']} |"
     end
 
     readme << "\n"
     readme << %{
-Total Score: #{total} / #{max}
+## Failed Tests
 
-*Note*: this score is tentative.
-
-*Note*: Do not make edits to this file, as any changes will be overwritten on the next grade run.
-
-In the future, below would be the diffs for each of the failed test cases!
+| Test Group | Test Name | Value |
+| ---------- | --------- | ----- |
     }.strip
+
+    failed.each do |g|
+      readme << "\n| #{g['test_group']} | #{red_box} #{g['test_name']} | #{g['max_score']} |"
+    end
+
+    failed.each do |g|
+      readme << "\n\n"
+      readme << %{
+### #{g['test_group']}:#{g['test_name']} -- Your program's output did not match the expected.
+
+In the future, this would be the diff for this failed test case.
+      }.strip
+    end
 
     readme
   end
