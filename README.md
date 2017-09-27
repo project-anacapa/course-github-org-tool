@@ -45,7 +45,7 @@ Once you have those four things ready, you can deploy to Heroku with a few mouse
 
 # Steps to take
 
-## Step 1: Generate your `OMNIAUTH_PROVIDER_KEY` and `OMNIAUTH_PROVIDER_KEY`
+## Step 1: Generate your `OMNIAUTH_PROVIDER_KEY` and `OMNIAUTH_PROVIDER_SECRET`
 
 Before you do this step, you will need:
 
