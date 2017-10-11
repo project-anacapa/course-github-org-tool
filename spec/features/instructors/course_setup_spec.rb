@@ -58,7 +58,7 @@ feature 'Course Setup' do
     expect(Setting.course_setup).to be_truthy
 
     visit students_path
-    expect(page).to have_css('#students-list', :text => '')
+    expect(page).to have_css('.students-list tr', count: 0)
   end
 
   # Scenario: Initial course setup means no students
@@ -72,7 +72,7 @@ feature 'Course Setup' do
     )
     signin
     visit students_path
-    expect(page).to have_css('#students-list', :text => '')
+    expect(page).to have_css('.students-list tr', count: 0)
   end
 
 end
