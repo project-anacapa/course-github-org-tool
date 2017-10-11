@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   helper_method :is_org_member
 
   include Strategies
+  include OctokitHelper
 
   private
 
@@ -84,14 +85,6 @@ class ApplicationController < ActionController::Base
         end
       end
       nil
-    end
-
-    def anon_octokit
-      Strategies::GitStrategy.get_instance(nil)
-    end
-
-    def machine_octokit
-      Strategies::GitStrategy.get_instance(ENV['MACHINE_USER_KEY'])
     end
 
     def session_octokit

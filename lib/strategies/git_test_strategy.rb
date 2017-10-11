@@ -6,6 +6,10 @@ module Strategies
       @token = token
     end
 
+    def add_org_hook(org, config, options={})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def emails
       [{
         :email      => "mockuser@example.org",

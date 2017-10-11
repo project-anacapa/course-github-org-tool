@@ -37,10 +37,19 @@
     "MACHINE_USER_KEY": {
       "description": "API Key with (user,admin:org) for the machine user.",
       "required": true
+    },
+    "WEBHOOK_SECRET": {
+      "description": "This helps the application be more secure when communicating with other services",
+      "required": false,
+      "generator": "secret"
     }
   },
   "formation": {
     "web": {
+      "quantity": 1,
+      "size": "free"
+    },
+    "worker": {
       "quantity": 1,
       "size": "free"
     }

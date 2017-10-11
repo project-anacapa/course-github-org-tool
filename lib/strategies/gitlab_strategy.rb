@@ -5,6 +5,10 @@ module Strategies
       raise NotImplementedError, 'TODO: Implement'
     end
 
+    def add_org_hook(org, config, options={})
+      raise NotImplementedError, 'TODO: Implement'
+    end
+
     def emails
       raise NotImplementedError, 'TODO: Implement'
     end
