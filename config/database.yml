@@ -19,7 +19,7 @@ default: &default
 
 development:
   <<: *default
-  host:     localhost
+  host:     /var/run/postgresql
   database: course-github-org-tool_development
   username: course-github-org-tool
   password:
@@ -45,7 +45,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  host:     localhost
+  host:     /var/run/postgresql
   database: course-github-org-tool_test
   username: course-github-org-tool
   password:
