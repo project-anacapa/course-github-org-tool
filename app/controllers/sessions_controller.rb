@@ -16,11 +16,8 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     session[:oauth_token] = auth[:credentials][:token]
 
-    # work-around to get app url from within the application later
-    ENV['APP_URL'] = root_url
-
     # on login, check if user is admin of course org and make them an instructor if need be
-    user.instructorize(session_octokit, machine_octokit)
+    user.instructorize(session_octokit, machine_octokit, root_url)
 
     # if the course has been 'set up', then also try to match logged in user to student info in roster
     if is_course_setup?

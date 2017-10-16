@@ -55,10 +55,12 @@ class User < ApplicationRecord
   end
 
 
-  def instructorize(client, machine)
+  def instructorize(client, machine, root_url)
+    # REFACTOR
+    # Machine user
     course = ENV['COURSE_ORGANIZATION']
     begin
-      m = client.org_membership(course, { user: self.username })
+      m = machine.org_membership(course, { user: self.username })
 
       # if the user is not an admin, then ignore them for now
       return false unless m[:role].eql? "admin"
@@ -69,7 +71,7 @@ class User < ApplicationRecord
       Setting.instructors = instructors
 
       # add machine user as admin to the organization (idempotent operation)
-      client.update_org_membership(course, {
+      machine.update_org_membership(course, {
           role: 'admin',
           state: 'pending',
           user: ENV['MACHINE_USER_NAME']
@@ -84,8 +86,7 @@ class User < ApplicationRecord
           # set up web-hooks in organization
           machine.add_org_hook(
               course,
-              # ENV['APP_URL'] was set right before the call to this method (in the same request)
-              { :url => "#{ENV['APP_URL']}#{github_webhooks_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
+              { :url => "#{root_url}#{github_webhooks_path[1..-1]}", :content_type => 'json', :secret => ENV['WEBHOOK_SECRET'] },
               { :events => ['member', 'public', 'push', 'repository'], :active => true }
           )
         rescue Exception => e

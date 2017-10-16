@@ -1,7 +1,7 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   # Note: when you change your environment variable, you might have to restart the application
 
-  github_scopes = 'user:email,admin:org'
+  github_scopes = 'user:email'
   omniauth_strategy = ENV['OMNIAUTH_STRATEGY']
 
   provider_url = ENV['GIT_PROVIDER_URL']
