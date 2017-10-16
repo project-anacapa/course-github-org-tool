@@ -1,4 +1,7 @@
 
+// There are bugs in this janky code
+// 1) On change doesn't fire if you upload file with same name
+// 2) If you upload a new file, text from old file sticks around
 $( document ).ready(function() {
 
    $("#file").on("change", function(e) {
