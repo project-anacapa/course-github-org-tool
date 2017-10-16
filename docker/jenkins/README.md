@@ -2,10 +2,6 @@
 
 The scripts here were taken in part from: https://technologyconversations.com/2017/06/16/automating-jenkins-docker-setup/
 
-# setting jenkins user and password
-echo "admin" | docker secret create jenkins-user -
-echo "admin" | docker secret create jenkins-pass -
-
 # updating plugins.txt
 
 ```sh
@@ -14,4 +10,6 @@ curl -s -k "http://admin:admin@localhost:8080/pluginManager/api/json?depth=1" \
 ```
 
 # Security
-TODO: restrict access to jenkins to only logged in users
+TODO: further restrict default access to jenkins. Right now it is far from particularly secure - users have read only access by default.
+
+ - https://wiki.jenkins.io/display/JENKINS/Slave+To+Master+Access+Control

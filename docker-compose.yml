@@ -1,35 +1,47 @@
 version: '3.3'
 services:
+
   db:
     container_name: anacapa_pg
     restart: on-failure:10
     image: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
+    ports:
+    - "5432:5432"
+
   jenkins:
+    container_name: anacapa_jenkins
     build: ./docker/jenkins
+    image: thelastpenguin/anacapa_jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
     secrets:
       - jenkins-user
       - jenkins-pass
-  anacapa:
+    volumes:
+      - jenkins-data:/jenkins
+
+  anacapa_rails:
     container_name: anacapa_rails
+    image: thelastpenguin/anacapa_rails
     build:
       context: .
       dockerfile: ./docker/anacapa/Dockerfile
     command: sh ./docker/anacapa/docker-entrypoint.sh
     volumes:
       - .:/anacapa
-      - /anacapa/tmp/
     ports:
       - "3000:3000"
     depends_on:
       - db
       - jenkins
+
 volumes:
   db-data:
+  jenkins-data:
+
 secrets:
   jenkins-user:
     file: ./docker/secrets/jenkins-user.txt
