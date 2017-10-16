@@ -7,4 +7,3 @@ ADD Gemfile /anacapa/Gemfile
 ADD Gemfile.lock /anacapa/Gemfile.lock
 RUN bundle install
 ADD . /anacapa
-RUN bundle exec rake assets:precompile
