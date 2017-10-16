@@ -1,7 +1,5 @@
-echo "Running Database Setup & Maintenance"
-pwd
 cd anacapa/
-rm tmp/
+rm -rf tmp/
 echo "Performing Setup..."
 bundle install
 bundle exec rake db:create

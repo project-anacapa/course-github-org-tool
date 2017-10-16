@@ -22,6 +22,7 @@ services:
     command: sh ./docker/anacapa/docker-entrypoint.sh
     volumes:
       - .:/anacapa
+      - /anacapa/tmp/
     ports:
       - "3000:3000"
     depends_on:
