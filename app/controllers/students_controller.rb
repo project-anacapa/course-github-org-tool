@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
 
   def import
     if params.has_key? :file
-      Student.import(params[:file])
+      Student.import(params[:file], params[:csv_header_map].split(','), params[:csv_header_toggle] == "true")
       redirect_to students_path, notice: 'Students imported.'
     else
       redirect_to :back, alert: 'Please specify a file.'
