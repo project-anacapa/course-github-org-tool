@@ -1,0 +1,18 @@
+<%= form_tag checkout_assignment_path(@assignment.name) do -%>
+    <%= hidden_field_tag 'student', current_user.username %>
+    <%= submit_tag 'Start Assignment', :class => 'btn btn-success' %>
+<% end %>
+
+<br>
+
+<p>Note: You may have already started this assignment!!</p>
+<p>Check below to see if one exists. However, you can still click the button above in order to make sure the
+   repository is set up properly.</p>
+
+<ul>
+  <% if student_repos(nil, current_user.username, @assignment.name).each do |repo| %>
+      <li><%= link_to repo.name, repo['html_url'] %></li>
+  <% end.empty? %>
+    <li>No repositories to display.</li>
+  <% end %>
+</ul>

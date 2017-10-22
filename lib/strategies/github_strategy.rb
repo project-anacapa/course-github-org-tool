@@ -13,6 +13,7 @@ module Strategies
       end
     end
 
+    # TODO: REMOVE WHEN NOT IN DEVELOPMENT PHASE!
     def get_client
       @client
     end
@@ -27,6 +28,10 @@ module Strategies
       end
     end
 
+    def add_collaborator(repo, collaborator, options = {})
+      @client.add_collaborator(repo, collaborator, options)
+    end
+
     def add_org_hook(org, config, options={})
       raise "URL must be provided" unless config.key?(:url)
       dest_url = config[:url]
@@ -38,6 +43,26 @@ module Strategies
         existing_hook = existing_hook[0]
         @client.edit_org_hook(org, existing_hook[:id], config, options)
       end
+    end
+
+    def collaborators(repo, options = {})
+      @client.collaborators(repo, options)
+    end
+
+    def collaborator?(repo, collaborator, options = {})
+      @client.collaborator?(repo, collaborator, options=options)
+    end
+
+    def contents(repo, options={})
+      @client.contents(repo, options)
+    end
+
+    def create_contents(repo, path, message, content=nil, options={})
+      @client.create_contents(repo, path, message, content, options)
+    end
+
+    def create_repository(name, options={})
+      @client.create_repository(name, options)
     end
 
     def emails
@@ -65,7 +90,15 @@ module Strategies
     end
 
     def repo(repo, params={})
-      @client.repo(repo, params)
+      begin
+        @client.repo(repo, params)
+      rescue
+        nil
+      end
+    end
+
+    def set_private(repo)
+      @client.set_private(repo)
     end
 
     def update_org_membership(name, params={})

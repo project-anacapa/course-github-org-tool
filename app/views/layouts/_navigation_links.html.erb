@@ -1,11 +1,11 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
   <li><%= link_to 'Course', course_path %></li>
+  <% if FeaturesHelper.anacapa_repos? %>
+    <li><%= link_to 'Assignments', assignments_path %></li>
+  <% end %>
 <% end %>
 <% if !current_user.nil? && current_user.is_instructor? %>
   <li><%= link_to 'Users', users_path %></li>
   <li><%= link_to 'Course Roster', students_path %></li>
-  <% if FeaturesHelper.anacapa_repos? %>
-    <li><%= link_to 'Assignments', assignments_path %></li>
-  <% end %>
 <% end %>

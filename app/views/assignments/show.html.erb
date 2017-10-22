@@ -1,5 +1,9 @@
 <div class="container">
   <h1>Course Assignment </h1>
 
-  <p><%= @assignment %></p>
+  <% if current_user.is_instructor? %>
+      <%= render 'assignments/show_instructor' %>
+  <% else %>
+      <%= render 'assignments/show_student' %>
+  <% end %>
 </div>
