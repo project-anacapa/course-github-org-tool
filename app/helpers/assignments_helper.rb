@@ -27,6 +27,21 @@ module AssignmentsHelper
     end
   end
 
+  def student_repo_get_assignment(assignments, repo_name)
+    assignments.each do |a|
+      if a.is_a? String
+        name = a.split("assignment-").last
+      else # a repo object
+        name = a.name.split("assignment-").last
+      end
+      if repo_name =~ /^#{name}-([\w\d\-_]+)$/i
+        return a, repo_name.split("#{name}-").last
+      end
+    end
+
+    nil
+  end
+
   def get_students(repo)
     usernames = machine_octokit.collaborators(repo).map { |r| r.login }
     usernames.select { |user| repo.include? user }

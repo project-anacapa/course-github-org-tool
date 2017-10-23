@@ -9,11 +9,11 @@ module Strategies
         @client = Octokit::Client.new \
                     :client_id => ENV['OMNIAUTH_PROVIDER_KEY'],
                     :client_secret => ENV['OMNIAUTH_PROVIDER_SECRET'],
-                    :api_endpoint => "#{@url}/api/v3/"
+                    :api_endpoint => "#{@url}/api/v3"
       else
         @client = Octokit::Client.new \
                     :access_token => @token,
-                    :api_endpoint => "#{@url}/api/v3/"
+                    :api_endpoint => "#{@url}/api/v3"
       end
     end
 
