@@ -14,15 +14,15 @@
 #
 default: &default
   adapter: postgresql
+  host:    db
+  username: postgres
+  password:
   encoding: unicode
   pool: 5
 
 development:
   <<: *default
-  host:     localhost
   database: course-github-org-tool_development
-  username: course-github-org-tool
-  password:
   template: template0
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -45,10 +45,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  host:     localhost
   database: course-github-org-tool_test
-  username: course-github-org-tool
-  password:
   template: template0
 
 production:

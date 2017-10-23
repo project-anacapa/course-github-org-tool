@@ -5,11 +5,11 @@ module Strategies
     def initialize(token)
       @token = token
     end
-
+    
     def add_collaborator(repo, collaborator, options = {})
       raise NotImplementedError, 'TODO: Implement'
     end
-
+    
     def add_org_hook(org, config, options={})
       raise NotImplementedError, 'TODO: Implement'
     end

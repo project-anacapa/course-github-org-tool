@@ -14,6 +14,14 @@ This tool is a first attempt at a MVP for allowing students to self-enroll in a 
 
 It also provides an interface for instructors to view which of their students have or have not enrolled in the GitHub Organization for the course, provided that the students have logged in to the application OR the application knows about the students' GitHub usernames.
 
+Finally, this tool is the starting point for future planned features including:
+1. A means for instructors to manage student assignments
+    * Instructors will be able to set up starter code, and students will be able to automatically create repos with the correct naming convention for single work, pair, or team work.
+    * This is similar to the functionality of [Github Classroom], but has the added benefit that (a) student's submissions are tied back to their official enrollment in the class by school email and, optionally,student id and (b) only students officially enrolled in the class can get access to self-signup into the organization.
+    * There will be a feature that allows instructors/TAs to gather all student submissions into a single directory structure for off line grading, or other processing.
+2. A means for instructors to give feedback on student assignments.
+3. Auto grader features that replace the submit.cs autograder deployed at UCSB.
+
 Deploying on Heroku
 ===================
 
@@ -22,25 +30,22 @@ To deploy this app on Heroku, you will need
 1. A Heroku account.  The "free tier" is sufficient.
 
 1. A github organization for your course, to which the instructor has owner access.  We will refer to that organization by the example name `UCSB-CS99-S15` in these instructions.     
-    * You will create an OMNIAUTH_PROVIDER_KEY and an OMNIAUTH_PROVIDER_SECRET that is associated with this github organization at a later step.    
-    * Note that students will sign in to the application using their github id.  When they do, the name of your organization
-      will appear.
-
-1. Optionally, a name for your application.  If you don't choose one, heroku will choose one for you such as `mashed-potatoes-85352`.  You may want to think of a better one in advance, such as `ucsb-cs99-s15-signup`.  But that's up to you.
-
-1. Values for four environment variables that authenticate the application to github in various ways.  We'll explain how to set up each of these in just a moment.  Each of these takes only a minute or two to obtain.   Here's a list of them for reference&mdash;we'll explain how to get each of them below.
+    
+1. Values for six environment variables that authenticate the application to github in various ways.  We'll explain how to set up each of these in just a moment.  Each of these takes only a minute or two to obtain.   Here's a list of them for reference&mdash;we'll explain how to get each of them below.
     * GIT_PROVIDER_URL
     * OMNIAUTH_STRATEGY
     * OMNIAUTH_PROVIDER_KEY
-    * OMNIAUTH_PROVIDER_KEY
+    * OMNIAUTH_PROVIDER_SECRET
     * MACHINE_USER_NAME
     * MACHINE_USER_KEY
 
-Once you have those three things ready, you can deploy to Heroku with a few mouse clicks.
+1. Optionally, a name for your application.  If you don't choose one, heroku will choose one for you such as `mashed-potatoes-85352`.  You may want to think of a better one in advance, such as `ucsb-cs99-s15-signup` or `ucsd-cse-spis-2017-signup`.  But that's up to you.
+
+Once you have those four things ready, you can deploy to Heroku with a few mouse clicks.
 
 # Steps to take
 
-## Step 1: Generate your `OMNIAUTH_PROVIDER_KEY` and `OMNIAUTH_PROVIDER_KEY`
+## Step 1: Generate your `OMNIAUTH_PROVIDER_KEY` and `OMNIAUTH_PROVIDER_SECRET`
 
 Before you do this step, you will need:
 
