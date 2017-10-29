@@ -1,0 +1,29 @@
+<p><%= @assignment %></p>
+
+<%= form_tag checkout_assignment_path(@assignment.name) do -%>
+    <%= hidden_field_tag 'student', current_user.username %>
+    <%= submit_tag 'Start Assignment', :class => 'btn btn-success' %>
+<% end %>
+<br>
+
+<% unless @spec.blank? %>
+    <pre><%= @spec %></pre>
+
+    <p><strong>Starter Code Repo: </strong>
+      <% if @spec['starter_repo'].blank? %>
+        None
+      <% else %>
+        <%= link_to @spec['starter_repo'], @spec['starter_repo'] %>
+      <% end %>
+    </p>
+<% end %>
+
+<p>Below is a list of student repositories corresponding to this assignment:</p>
+
+<ul>
+  <% if student_repos(nil, nil, @assignment.name).each do |repo| %>
+      <li><%= link_to repo.name, repo['html_url'] %></li>
+  <% end.empty? %>
+      <li>No students have started this assignment.</li>
+  <% end %>
+</ul>

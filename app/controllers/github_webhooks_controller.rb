@@ -14,7 +14,7 @@ class GithubWebhooksController < ApplicationController
   end
 
   def github_push(payload)
-    HandlePushJob.perform_later payload
+    HandlePushJob.perform_later(payload, jenkins_status_url)
     head(:ok)
   end
 

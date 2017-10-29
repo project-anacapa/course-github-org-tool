@@ -28,7 +28,31 @@ module Strategies
       true
     end
 
+    def add_collaborator(repo, collaborator, options = {})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
     def add_org_hook(org, config, options={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def collaborators(repo, options = {})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def collaborator?(repo, collaborator, options = {})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def contents(repo, options={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def create_contents(repo, path, message, content=nil, options={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def create_repository(name, options={})
       raise NotImplementedError, 'Use a Specific Implementation'
     end
 
@@ -57,6 +81,14 @@ module Strategies
     end
 
     def repo(repo, params={})
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def set_private(repo)
+      raise NotImplementedError, 'Use a Specific Implementation'
+    end
+
+    def update_contents(repo, path, message, sha, content=nil, options={})
       raise NotImplementedError, 'Use a Specific Implementation'
     end
 

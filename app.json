@@ -19,7 +19,7 @@
       "required": true
     },
     "COURSE_ORGANIZATION": {
-      "description": "The name of your github organization",
+      "description": "The name of your github organization or gitlab group.",
       "required": true
     },
     "OMNIAUTH_PROVIDER_KEY": {
@@ -35,11 +35,11 @@
       "required": true
     },
     "MACHINE_USER_KEY": {
-      "description": "API Key with (user,admin:org) for the machine user.",
+      "description": "API Key with (user,repo,delete_repo,admin:org) for the machine user.",
       "required": true
     },
     "WEBHOOK_SECRET": {
-      "description": "This helps the application be more secure when communicating with other services",
+      "description": "This helps the application be more secure when communicating with other services.",
       "required": false,
       "generator": "secret"
     }
