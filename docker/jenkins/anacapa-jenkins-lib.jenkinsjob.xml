@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.synopsys.arc.jenkins.plugins.ownership.jobs.JobOwnerJobProperty plugin="ownership@0.10.0"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.27">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+    <com.synopsys.arc.jenkinsci.plugins.jobrestrictions.jobs.JobRestrictionProperty plugin="job-restrictions@0.6"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.66">
+      <targets>jobs/standaloneSetupAssignment.groovy</targets>
+      <scriptText>job(&quot;AnacapaGrader-setupAssignment&quot;) {
+  parameters {
+    stringParam(&apos;callback_url&apos;, &apos;&apos;, &apos;&apos;&apos;
+      The URL that will be notified once the job has finished and complete all
+      post-build activities, such as generating artifacts.
+    &apos;&apos;&apos;.stripIndent())
+    stringParam(&apos;git_provider_domain&apos;, &apos;github.com&apos;, &apos;&apos;&apos;
+      The domain of your HTTPS git provider, such as github.com or gitlab.com or
+github.ucsb.edu.
+    &apos;&apos;&apos;.stripIndent())
+    stringParam(&apos;course_org&apos;, &apos;&apos;, &apos;&apos;&apos;
+      The name of your course&apos;s github organization, github enterprise organization,
+      or gitlab group.
+    &apos;&apos;&apos;.stripIndent())
+    credentialsParam(&apos;credentials_id&apos;) {
+        required()
+        description(&apos;The identifier of the credentials needed to check out the git repository (note: if using ssh url for git, the credentials will need to be Username + Private Key, otherwise only https is allowed)&apos;)
+    }
+    stringParam(&apos;lab_name&apos;, &apos;&apos;, &apos;&apos;&apos;
+      The name of the lab to create (corresponding to an existing git repository
+      with name `assignment-${lab_name}`)
+    &apos;&apos;&apos;.stripIndent())
+  }
+  scm {
+    github(&apos;project-anacapa/anacapa-jenkins-lib&apos;)
+  }
+  steps {
+    // trigger the standalone assignment and standalone grader creation
+    dsl([&apos;jobs/assignment.groovy&apos;, &apos;jobs/grader.groovy&apos;], &apos;IGNORE&apos;)
+  }
+}</scriptText>
+      <usingScriptText>true</usingScriptText>
+      <sandbox>false</sandbox>
+      <ignoreExisting>false</ignoreExisting>
+      <ignoreMissingFiles>false</ignoreMissingFiles>
+      <failOnMissingPlugin>false</failOnMissingPlugin>
+      <unstableOnDeprecation>false</unstableOnDeprecation>
+      <removedJobAction>IGNORE</removedJobAction>
+      <removedViewAction>IGNORE</removedViewAction>
+      <removedConfigFilesAction>IGNORE</removedConfigFilesAction>
+      <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

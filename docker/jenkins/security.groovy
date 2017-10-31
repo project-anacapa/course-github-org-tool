@@ -4,11 +4,16 @@ import jenkins.model.*
 import hudson.security.*
 import jenkins.security.s2m.AdminWhitelistRule
 
+System.out.println("Jenkins configuring up users and passwords");
+
 def instance = Jenkins.getInstance()
 
 // setup the admin user account
 def user = new File("/run/secrets/jenkins-user").text.trim()
 def pass = new File("/run/secrets/jenkins-pass").text.trim()
+
+System.out.println("\tAdmin user in: /run/secrets/jenkins-user")
+System.out.println("\tAdmin pass in: /run/secrets/jenkins-pass")
 
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
 hudsonRealm.createAccount(user, pass)
