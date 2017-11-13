@@ -39,3 +39,4 @@ Jenkins.instance.getInjector().getInstance(AdminWhitelistRule.class)
 Jenkins.instance.getInjector().getInstance(AdminWhitelistRule.class).setMasterKillSwitch(false)
 
 Jenkins.instance.save()
+

@@ -16,3 +16,4 @@ COPY security.groovy /usr/share/jenkins/ref/init.groovy.d/security.groovy
 COPY global-pipeline-libraries.groovy /usr/share/jenkins/ref/init.groovy.d/global-pipeline-libraries.groovy
 COPY dsl-setup.groovy /usr/share/jenkins/ref/init.groovy.d/dsl-setup.groovy 
 COPY jenkins-worker-setup.groovy /usr/share/jenkins/ref/init.groovy.d/jenkins-worker-setup.groovy 
+COPY misc-config.groovy /usr/share/jenkins/ref/init.groovy.d/misc-config.groovy 

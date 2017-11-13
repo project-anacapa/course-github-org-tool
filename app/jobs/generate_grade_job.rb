@@ -28,6 +28,7 @@ class GenerateGradeJob < ApplicationJob
 
       # if a grade was generated
       if build['artifacts'].key?('grade.json')
+        logger.warn("\"#{build['artifacts']['grade.json']['archive']}\"")
         grade = AnacapaJenkinsAPI.make_request(build['artifacts']['grade.json']['archive']).body
         # feedback shown to students
         self.update_feedback(grade, org, lab, students, build['artifacts'])
