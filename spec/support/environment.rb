@@ -16,6 +16,15 @@ ENV['OMNIAUTH_PROVIDER_SECRET'] = TestEnv::OMNIAUTH_PROVIDER_SECRET
 ENV['MACHINE_USER_NAME']        = TestEnv::MACHINE_USER_NAME
 ENV['MACHINE_USER_KEY']         = TestEnv::MACHINE_USER_KEY
 
+module Opts
+  opts = JSON.parse(
+    JSON.dump(YAML.load_file(File.expand_path("../../config.yml", __FILE__))), 
+    symbolize_names: true)
+end
+
+
 RSpec.configure do |config|
   config.include TestEnv
+  config.include Opts
+  # print(config.opts[:TestGithubOrgs][:CiTestOrg])
 end

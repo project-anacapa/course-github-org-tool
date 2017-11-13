@@ -1,0 +1,19 @@
+TestGithubOrgs:
+  CiTestOrg: # contact gareth george for the development copy of this file pre-configured
+    Provider: github.com
+    OrgName: project-anacapa-ci-class
+    Owners:
+      Owner1:
+        Username: 
+        Email: 
+        Password: 
+    MachineUsers:
+      Machine1:
+        Username: 
+        Email: 
+        Password: 
+    Students:
+      User1: 
+        Username: 
+        Email: 
+        Password: 
