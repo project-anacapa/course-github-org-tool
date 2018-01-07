@@ -1,3 +1,7 @@
+
+NOTE: IF YOU WANT A WORKING VERSION OF THIS APP, please visit: https://github.com/project-anacapa/github-roster-tool instead!
+
+
 Course Github Org Tool
 ================
 
